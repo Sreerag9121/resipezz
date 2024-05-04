@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "904843103992",
+    "project_id": "recipizz-app",
+    "storage_bucket": "recipizz-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:904843103992:android:53e55d709deeb72c06b50d",
+        "android_client_info": {
+          "package_name": "com.example.recipizz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDT4gwO-7aB739cQqsnkHPaFpfYH215JRU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
