@@ -14,7 +14,7 @@ class MyTextField extends StatefulWidget {
     super.key,
     required this.controllers,
     required this.hintText,
-    required this.obscureText,
+    this.obscureText=false,
     required this.labelText,
     required this.keyboardType, 
     this.prefixIconData,
@@ -38,7 +38,7 @@ class MyTextFieldState extends State<MyTextField> {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
         ),
-        border:  OutlineInputBorder(),
+        border:  const OutlineInputBorder(),
         labelText: widget.labelText,
         labelStyle: TextStyle(color:AppTheme.colors.appBlackColor),
         hintText: widget.hintText,
@@ -59,7 +59,7 @@ class MyTextFieldState extends State<MyTextField> {
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Please enter a Username';
+          return 'Please enter a ${widget.labelText}';
         }
         return null;
       },

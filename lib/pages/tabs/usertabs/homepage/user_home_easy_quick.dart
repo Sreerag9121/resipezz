@@ -1,20 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:recipizz/pages/other/admin/recipedetail/recipe_detail_main.dart';
+import 'package:recipizz/pages/other/user/recipesmainpage/recipes_main.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
-class AdminEasyAndQuick extends StatefulWidget {
-  const AdminEasyAndQuick({
+class UserEasyAndQuick extends StatefulWidget {
+  const UserEasyAndQuick({
     super.key,
   });
 
   @override
-  State<AdminEasyAndQuick> createState() => _AdminEasyAndQuickState();
+  State<UserEasyAndQuick> createState() => _UserEasyAndQuickState();
 }
 
-class _AdminEasyAndQuickState extends State<AdminEasyAndQuick> {
+class _UserEasyAndQuickState extends State<UserEasyAndQuick> {
   late Stream<QuerySnapshot> _stream;
+  final List<RecipeItems> items = [];
   @override
   void initState() {
     CollectionReference categoriesCollection =
@@ -83,7 +84,7 @@ class _AdminEasyAndQuickState extends State<AdminEasyAndQuick> {
                       return InkWell(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => AdminRecipesMainPage(
+                              builder: (context) => RecipesMainPage(
                                     recipeId: thisItem['id'],
                                   )));
                         },
@@ -151,3 +152,9 @@ class _AdminEasyAndQuickState extends State<AdminEasyAndQuick> {
   }
 }
 
+class RecipeItems {
+  final String name;
+  final String photoUrl;
+  final String time;
+  RecipeItems({required this.name, required this.photoUrl, required this.time});
+}

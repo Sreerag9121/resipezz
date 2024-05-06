@@ -2,40 +2,37 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
-class AdminCategoriHome extends StatefulWidget {
-  const AdminCategoriHome({super.key});
+class CategoriesHomePage extends StatefulWidget {
+  const CategoriesHomePage({super.key});
 
   @override
-  State<AdminCategoriHome> createState() => _AdminCategoriHomeState();
+  State<CategoriesHomePage> createState() => _CategoriesHomePageState();
 }
 
-class _AdminCategoriHomeState extends State<AdminCategoriHome> {
-  late Stream<QuerySnapshot> _stream;
+class _CategoriesHomePageState extends State<CategoriesHomePage> {
+  late Stream<QuerySnapshot> _streams;
   @override
   void initState() {
-    CollectionReference categoriesCollection =
-        FirebaseFirestore.instance.collection('categories');
-    _stream = categoriesCollection.orderBy('datetime').snapshots();
+    CollectionReference userCatCollection=
+    FirebaseFirestore.instance.collection('categories');
+    _streams = userCatCollection.orderBy('datetime').snapshots();
+    // _streams =userCatCollection.snapshots();
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: _stream,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
+      stream: _streams, 
+      builder: (context,snapshot){
+        if(snapshot.hasError){
           return Center(
             child: Text('Some error occurred ${snapshot.error}'),
           );
         }
-        if(!snapshot.hasData){
-          return const Center(child: Text('No Categories'),);
-        }
-        if (snapshot.hasData) {
-          QuerySnapshot<Object?>? querySnapshot = snapshot.data;
-          List<QueryDocumentSnapshot> documents = querySnapshot!.docs;
-          List<Map> items = documents
+        if(snapshot.hasData){
+          QuerySnapshot<Object?>? querySnap = snapshot.data;
+          List<QueryDocumentSnapshot>dataDoc = querySnap!.docs;
+          List<Map> items = dataDoc
               .map((element) => {
                     'id': element.id,
                     'name': element['categoriesName'],
@@ -84,8 +81,13 @@ class _AdminCategoriHomeState extends State<AdminCategoriHome> {
             },
           );
         }
-        return const Center(child: CircularProgressIndicator());
-      },
-    );
-  }
+        return const Center(child: CircularProgressIndicator(),);
+      }
+      );
+}
+}
+class MyItems {
+  final String name;
+  final String photoUrl;
+  MyItems({required this.name, required this.photoUrl});
 }

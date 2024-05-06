@@ -12,8 +12,9 @@ class AddCategories extends StatefulWidget {
 }
 
 class _AddCategoriesState extends State<AddCategories> {
-final CategoriesCrud categoriesCrud = CategoriesCrud();
-
+  final CategoriesCrud categoriesCrud = CategoriesCrud();
+  bool isLoading = false;
+  final _formKeys = GlobalKey<FormState>();
   final categoriesNameController = TextEditingController();
   String imagePath = '';
   @override
@@ -22,7 +23,7 @@ final CategoriesCrud categoriesCrud = CategoriesCrud();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppTheme.colors.shadecolor,
-        foregroundColor:AppTheme.colors.appWhiteColor ,
+        foregroundColor: AppTheme.colors.appWhiteColor,
         title: Text(
           'Create Categories',
           style: TextStyle(
@@ -35,7 +36,7 @@ final CategoriesCrud categoriesCrud = CategoriesCrud();
           onTap: () {
             Navigator.of(context).pop();
           },
-          child:const Icon(
+          child: const Icon(
             Icons.arrow_back,
             size: 25,
           ),
@@ -46,35 +47,72 @@ final CategoriesCrud categoriesCrud = CategoriesCrud();
           reverse: true,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 30,
-                ),
-                AddCategoriesImg(
-                  onImageSelected: (image) {
-                    setState(() {
-                      imagePath = image ?? '';
-                    });
-                  },
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                MyTextFieldWoutBrd(
-                    controllers: categoryController,
-                    hintText: 'Enter the Categories Name',
-                    labelText: 'Categories'),
-                ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(AppTheme.colors.shadecolor),
-                    foregroundColor: MaterialStateProperty.all<Color>(AppTheme.colors.appWhiteColor)
+            child: Form(
+              key: _formKeys,
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 30,
                   ),
-                    onPressed: () async {
-                     await categoriesCrud.addCategoriesMethod(categoryController, imagePath, context);
+                  AddCategoriesImg(
+                    onImageSelected: (image) {
+                      setState(() {
+                        imagePath = image ?? '';
+                      });
                     },
-                    child: const Text('Create Categories'))
-              ],
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  MyTextFieldWoutBrd(
+                      controllers: categoryController,
+                      hintText: 'Enter the Categories Name',
+                      labelText: 'Categories'),
+                  Stack(
+                    children: [
+                      ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                AppTheme.colors.shadecolor),
+                            foregroundColor: MaterialStateProperty.all<Color>(
+                                AppTheme.colors.appWhiteColor)),
+                        onPressed: () async {
+                          if (_formKeys.currentState!.validate()) {
+                            if (imagePath.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Please select an image',
+                                    style: TextStyle(
+                                        color: AppTheme.colors.appWhiteColor),
+                                  ),
+                                  backgroundColor: AppTheme.colors.appRedColor,
+                                ),
+                              );
+                            } else {
+                              setState(() {
+                                isLoading = true;
+                              });
+                              await categoriesCrud.addCategoriesMethod(
+                                  categoryController, imagePath, context);
+                              setState(() {
+                                isLoading = false;
+                              });
+                            }
+                          }
+                        },
+                        child: const Text('Create category'),
+                      ),
+                      if (isLoading)
+                        const Positioned.fill(
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

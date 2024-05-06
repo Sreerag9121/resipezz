@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
 class AddDirections extends StatefulWidget {
-  final Function(List<TextEditingController>)onDirectionList;
-  const AddDirections({super.key,
-  required this.onDirectionList
-  });
+  final Function(List<TextEditingController>) onDirectionList;
+  const AddDirections({super.key, required this.onDirectionList});
 
   @override
   State<AddDirections> createState() => _AddDirectionsState();
@@ -16,11 +14,12 @@ class _AddDirectionsState extends State<AddDirections> {
 
   @override
   void dispose() {
-    for(var controller in listController){
+    for (var controller in listController) {
       controller.dispose();
     }
     super.dispose();
   }
+
   @override
   void setState(VoidCallback fn) {
     widget.onDirectionList(listController);
@@ -54,10 +53,17 @@ class _AddDirectionsState extends State<AddDirections> {
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: TextFormField(
                       controller: listController[index],
-                      maxLines: null, // Allow multiple lines
+                      maxLines: null,
                       decoration: const InputDecoration(
                         hintText: "Input Text Here",
                       ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a Direction';
+                        }
+                        return null;
+                      },
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                     ),
                   ),
                 ),
@@ -94,12 +100,11 @@ class _AddDirectionsState extends State<AddDirections> {
           },
           child: Center(
             child: Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 20, vertical: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
               decoration: BoxDecoration(
                   color: AppTheme.colors.appButtonColor,
                   borderRadius: BorderRadius.circular(10)),
-              child:  Text("Add More",
+              child: Text("Add More",
                   style: TextStyle(color: AppTheme.colors.appWhiteColor)),
             ),
           ),

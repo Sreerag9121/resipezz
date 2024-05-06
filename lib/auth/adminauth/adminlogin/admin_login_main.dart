@@ -48,7 +48,6 @@ class _AdminLogInMainState extends State<AdminLogInMain> {
           //Emailname
                    MyTextField(controllers: _adminusernamecontoller,
                     hintText: 'Enter Email', 
-                    obscureText: false,
                     labelText: 'Email',
                     prefixIconData: Icons.account_circle_outlined,
                     keyboardType: TextInputType.emailAddress,),

@@ -66,8 +66,8 @@ class _AddRecipeImgState extends State<AddRecipeImg> {
 
                                   IconButton(
                                     onPressed: () {
-                                      _pickImageFromCamera();
-                                      Navigator.of(context).pop();
+                                         _pickImageFromCamera();
+                                      Navigator.of(context).pop();                                         
                                     },
                                     icon: const Icon(
                                       Icons.camera,
@@ -88,8 +88,8 @@ class _AddRecipeImgState extends State<AddRecipeImg> {
 
                                   IconButton(
                                     onPressed: () {
-                                      _pickImageFromGallery();
-                                      Navigator.of(context).pop();
+                                        _pickImageFromGallery();
+                                      Navigator.of(context).pop();                      
                                     },
                                     icon: const Icon(
                                       Icons.photo,
@@ -124,6 +124,21 @@ class _AddRecipeImgState extends State<AddRecipeImg> {
         ),
       ],
     );
+  }
+    bool validateImage() {
+    if (image == null || image!.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text(
+            'Please select an image',
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: AppTheme.colors.appRedColor,
+        ),
+      );
+      return false;
+    }
+    return true;
   }
 
   Future _pickImageFromGallery() async {

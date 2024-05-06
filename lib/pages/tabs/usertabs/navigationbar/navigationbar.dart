@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipizz/pages/tabs/usertabs/menu/Menumain/menu_main.dart';
 import 'package:recipizz/pages/tabs/usertabs/favoritepage/favorite_main.dart';
-import 'package:recipizz/pages/tabs/usertabs/homepage/home_main.dart';
+import 'package:recipizz/pages/tabs/usertabs/homepage/user_home_main.dart';
 import 'package:recipizz/pages/tabs/usertabs/shopinglist/shopinglistmain.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
@@ -15,7 +15,7 @@ class UserNavBar extends StatefulWidget {
 class _UserNavBarState extends State<UserNavBar> {
   int index=0;
   final screens=[
-    const HomePageMain(),
+    const UserHomePageMain(),
     const FavroitePageMain(),
     const ShopingList(),
     const MenuPage(),

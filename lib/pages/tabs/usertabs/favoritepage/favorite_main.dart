@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipizz/pages/tabs/usertabs/favoritepage/favorite_grid.dart';
-import 'package:recipizz/pages/tabs/usertabs/homepage/home_search.dart';
+import 'package:recipizz/pages/tabs/usertabs/homepage/user_home_search.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
 class FavroitePageMain extends StatelessWidget {

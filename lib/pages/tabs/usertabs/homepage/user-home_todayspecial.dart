@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
-class TodaySpecialCard extends StatefulWidget {
-  const TodaySpecialCard({super.key});
+class UserTodaySpecialCard extends StatefulWidget {
+  const UserTodaySpecialCard({super.key});
 
   @override
-  State<TodaySpecialCard> createState() => _TodaySpecialCardState();
+  State<UserTodaySpecialCard> createState() => _UserTodaySpecialCardState();
 }
 
-class _TodaySpecialCardState extends State<TodaySpecialCard> {
+class _UserTodaySpecialCardState extends State<UserTodaySpecialCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(

@@ -3,9 +3,7 @@ import 'package:recipizz/utils/app_theme.dart';
 
 class AddIngredients extends StatefulWidget {
   final Function(List<TextEditingController>) onIngredientList;
-  const AddIngredients({super.key,
-  required this.onIngredientList
-  });
+  const AddIngredients({super.key, required this.onIngredientList});
 
   @override
   State<AddIngredients> createState() => _AddIngredientsState();
@@ -14,9 +12,9 @@ class AddIngredients extends StatefulWidget {
 class _AddIngredientsState extends State<AddIngredients> {
   List<TextEditingController> listController = [TextEditingController()];
 
-@override
+  @override
   void dispose() {
-    for(var controller in listController){
+    for (var controller in listController) {
       controller.dispose();
     }
     super.dispose();
@@ -61,6 +59,13 @@ class _AddIngredientsState extends State<AddIngredients> {
                             fontWeight: FontWeight.w400,
                             color: AppTheme.colors.appGreyColor),
                       ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a Ingredients';
+                        }
+                        return null;
+                      },
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                     ),
                   ),
                 ),
@@ -101,9 +106,9 @@ class _AddIngredientsState extends State<AddIngredients> {
               decoration: BoxDecoration(
                   color: AppTheme.colors.appButtonColor,
                   borderRadius: BorderRadius.circular(10)),
-              child:Text("Add More",
+              child: Text("Add More",
                   style: TextStyle(
-                    color:AppTheme.colors.appWhiteColor,
+                    color: AppTheme.colors.appWhiteColor,
                   )),
             ),
           ),
