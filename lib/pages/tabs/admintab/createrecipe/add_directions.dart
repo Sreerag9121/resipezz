@@ -35,7 +35,6 @@ class _AddDirectionsState extends State<AddDirections> {
           "Direction *",
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Color(0xFF2E384E),
           ),
         ),
         const SizedBox(
@@ -54,8 +53,12 @@ class _AddDirectionsState extends State<AddDirections> {
                     child: TextFormField(
                       controller: listController[index],
                       maxLines: null,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         hintText: "Input Text Here",
+                        hintStyle: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: AppTheme.colors.appGreyColor)
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -70,8 +73,7 @@ class _AddDirectionsState extends State<AddDirections> {
                 const SizedBox(
                   width: 10,
                 ),
-                index != 0
-                    ? GestureDetector(
+               GestureDetector(
                         onTap: () {
                           setState(() {
                             listController[index].clear();
@@ -84,7 +86,6 @@ class _AddDirectionsState extends State<AddDirections> {
                           size: 25,
                         ),
                       )
-                    : const SizedBox()
               ],
             );
           },

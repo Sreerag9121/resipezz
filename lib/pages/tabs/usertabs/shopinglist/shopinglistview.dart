@@ -53,7 +53,8 @@ class _ShopingListViewState extends State<ShopingListView> {
                   child: Row(
                     children: [
                       const Icon(Icons.push_pin_outlined),
-                      Text(ingrditem[intex].ingrdname),
+                      Text(ingrditem[intex].ingrdname,
+                      style: TextStyle(fontFamily: AppTheme.fonts.jost),),
                     ],
                   ),
                 ),
@@ -68,6 +69,5 @@ class _ShopingListViewState extends State<ShopingListView> {
 class Ingredients {
   final String name;
   final String ingrdname;
-
   Ingredients({required this.name, required this.ingrdname});
 }

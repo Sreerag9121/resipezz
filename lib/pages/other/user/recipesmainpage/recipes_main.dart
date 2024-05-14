@@ -30,7 +30,8 @@ class _RecipesMainPageState extends State<RecipesMainPage> {
         appBar: AppBar(
           backgroundColor: AppTheme.colors.shadecolor,
           foregroundColor: AppTheme.colors.appWhiteColor,
-          title: const Text('Chicken Teriyaki chow Mein'),
+          title: Text('Recipes',
+              style: TextStyle(fontFamily: AppTheme.fonts.jost)),
           centerTitle: true,
           leading: IconButton(
               onPressed: () {

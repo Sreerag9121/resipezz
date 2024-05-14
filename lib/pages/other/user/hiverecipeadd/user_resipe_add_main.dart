@@ -2,26 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:recipizz/pages/tabs/admintab/createrecipe/add_directions.dart';
 import 'package:recipizz/pages/tabs/admintab/createrecipe/add_ingredients.dart';
 import 'package:recipizz/pages/tabs/admintab/createrecipe/add_recipe_img.dart';
-import 'package:recipizz/pages/tabs/admintab/createrecipe/select_categories.dart';
-import 'package:recipizz/services/functions/adminfunctions/recipes_crud_functions.dart';
+import 'package:recipizz/services/functions/hive/hive_recipe_fn.dart';
 import 'package:recipizz/utils/app_theme.dart';
 import 'package:recipizz/widgets/text_field_without_border.dart';
 
-class CreateRecipeMain extends StatefulWidget {
-  const CreateRecipeMain({super.key});
+class UserCreateRecipeMain extends StatefulWidget {
+  const UserCreateRecipeMain({super.key});
 
   @override
-  State<CreateRecipeMain> createState() => _CreateRecipeMainState();
+  State<UserCreateRecipeMain> createState() => _UserCreateRecipeMainState();
 }
 
-class _CreateRecipeMainState extends State<CreateRecipeMain> {
-  final RecipesCurdOp recipesCurdOp = RecipesCurdOp();
+class _UserCreateRecipeMainState extends State<UserCreateRecipeMain> {
+  final UserRecipeCrud userRecipeCrud = UserRecipeCrud();
   bool isLoading = false;
   final _formKey = GlobalKey<FormState>();
   final _recipenamecontoller = TextEditingController();
   final _servingcontoller = TextEditingController();
   final _durationcontoller = TextEditingController();
-  String category = '';
   List<TextEditingController> ingreadientsController = [];
   List<TextEditingController> directionsController = [];
   List<String> ingreadientList = [];
@@ -62,11 +60,6 @@ class _CreateRecipeMainState extends State<CreateRecipeMain> {
                     controllers: _recipenamecontoller,
                     hintText: 'Enter the name of recipe',
                     labelText: 'Recipe name *'),
-                CategoryDropDown(selectedCategory: (selectCategory) {
-                  setState(() {
-                    category = selectCategory!;
-                  });
-                }),
                 AddRecipeImg(onImageSelectedResipe: (image) {
                   setState(() {
                     recipeImagePath = image ?? '';
@@ -101,66 +94,38 @@ class _CreateRecipeMainState extends State<CreateRecipeMain> {
                         backgroundColor: AppTheme.colors.maincolor,
                         foregroundColor: AppTheme.colors.appWhiteColor,
                       ),
-                      onPressed: isLoading
-                          ? null
-                          : () async {
-                              if (_formKey.currentState!.validate()) {
-                                if (recipeImagePath.isEmpty) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Please select an image',
-                                        style: TextStyle(
-                                            color:
-                                                AppTheme.colors.appWhiteColor),
-                                      ),
-                                      backgroundColor:
-                                          AppTheme.colors.appRedColor,
-                                    ),
-                                  );
-                                }
-                               else if (category.isEmpty) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Please select an Category',
-                                        style: TextStyle(
-                                            color:
-                                                AppTheme.colors.appWhiteColor),
-                                      ),
-                                      backgroundColor:
-                                          AppTheme.colors.appRedColor,
-                                    ),
-                                  );
-                                }
-                                else{
-                                setState(() {
-                                  isLoading = true;
-                                });
-                                await recipesCurdOp.addRecipeMethod(
-                                  _recipenamecontoller,
-                                  _servingcontoller,
-                                  _durationcontoller,
-                                  recipeImagePath,
-                                  ingreadientsController,
-                                  directionsController,
-                                  category,
-                                  context,
-                                );
-                                setState(() {
-                                  isLoading = false;
-                                });
-                                // ignore: use_build_context_synchronously
-                                Navigator.of(context).pop();
-                              }
-                              }
-                            },
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          if (recipeImagePath.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Please select an image',
+                                  style: TextStyle(
+                                      color: AppTheme.colors.appWhiteColor),
+                                ),
+                                backgroundColor: AppTheme.colors.appRedColor,
+                              ),
+                            );
+                          } else {
+                            userRecipeCrud.addRecipeHive(
+                              _recipenamecontoller,
+                              _servingcontoller,
+                              _durationcontoller,
+                              recipeImagePath,
+                              ingreadientsController,
+                              directionsController,
+                            );
+                            Navigator.pop(context);
+                          }
+                        }
+                      },
                       child: Text(
                         'Create Recipe',
                         style: TextStyle(fontFamily: AppTheme.fonts.jost),
                       ),
                     ),
-                    if (isLoading) const Center(child: CircularProgressIndicator()),
+                    if (isLoading) const CircularProgressIndicator(),
                   ],
                 )
               ],

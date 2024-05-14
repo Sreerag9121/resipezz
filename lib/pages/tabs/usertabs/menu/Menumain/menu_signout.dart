@@ -27,16 +27,19 @@ class _SignOutButtonState extends State<SignOutButton> {
           TextButton(
             onPressed: () async {
              await _authService.logOut();
+             // ignore: use_build_context_synchronously
              Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (context)=>const LogInPage()), (route) => false);
             },
-            child: const Text('Yes'),
+            child: Text('Yes',
+            style: TextStyle(fontFamily: AppTheme.fonts.jost),),
           ),
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: const Text('NO'),
+            child: Text('NO',
+            style: TextStyle(fontFamily: AppTheme.fonts.jost),),
           ),
         ],
       ),

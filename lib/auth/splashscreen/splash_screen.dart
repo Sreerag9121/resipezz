@@ -82,6 +82,7 @@ Future<void>checkUserloggedin()async{
               ),
               Text(
                 style: TextStyle(
+                  color: AppTheme.colors.appBlackColor,
                   fontFamily: AppTheme.fonts.mysteryQuest,
                   fontSize: 40.0,
                 ),

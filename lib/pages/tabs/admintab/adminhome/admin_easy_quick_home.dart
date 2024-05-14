@@ -48,11 +48,18 @@ class _AdminEasyAndQuickState extends State<AdminEasyAndQuick> {
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return Center(
-                    child: Text('Some error occurred ${snapshot.error}'),
+                    child: Text(
+                      'Some error occurred ${snapshot.error}',
+                      style: TextStyle(fontFamily: AppTheme.fonts.jost),
+                    ),
                   );
                 }
                 if (!snapshot.hasData) {
-                  return const Center(child: Text('No Recipes'));
+                  return Center(
+                      child: Text(
+                    'No Recipes',
+                    style: TextStyle(fontFamily: AppTheme.fonts.jost),
+                  ));
                 }
                 if (snapshot.hasData) {
                   QuerySnapshot<Object?>? querySnapshot =
@@ -130,7 +137,8 @@ class _AdminEasyAndQuickState extends State<AdminEasyAndQuick> {
                                       const SizedBox(
                                         width: 8,
                                       ),
-                                      Text('${thisItem['time']}')
+                                      Text('${thisItem['time']}',
+                                      style: TextStyle(fontFamily: AppTheme.fonts.jost),)
                                     ],
                                   ),
                                 )
@@ -150,4 +158,3 @@ class _AdminEasyAndQuickState extends State<AdminEasyAndQuick> {
     );
   }
 }
-

@@ -3,55 +3,39 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
-class AddCategoriesImg extends StatefulWidget {
+class UpdateHiveImage extends StatefulWidget {
   final Function(String?) onImageSelected;
-  const AddCategoriesImg({
+  final String? oldImages;
+  const UpdateHiveImage({
     super.key,
     required this.onImageSelected,
+    this.oldImages,
   });
 
   @override
-  State<AddCategoriesImg> createState() => _AddCategoriesImgState();
+  State<UpdateHiveImage> createState() => _UpdateHiveImageState();
 }
 
-class _AddCategoriesImgState extends State<AddCategoriesImg> {
-  String? images;
+class _UpdateHiveImageState extends State<UpdateHiveImage> {
+  late String? image;
+  @override
+  void initState() {
+    image = widget.oldImages;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        images != null
-            ? SizedBox(
-                width: double.infinity,
-                height: 300,
-                child: Image.file(File(images!),
-                    width: double.infinity,
-                    height: double.infinity,
-                    fit: BoxFit.cover),
-              )
-            : Container(
-                width: double.infinity,
-                height: 300,
-                decoration: BoxDecoration(border: Border.all(
-                  color: AppTheme.colors.appGreyColor
-                )),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.photo_library_outlined,
-                      color: AppTheme.colors.appGreyColor,),
-                      Text(
-                        '*Add Recipes Photo Here',
-                        style: TextStyle(
-                          color: AppTheme.colors.appGreyColor,
-                          fontFamily: AppTheme.fonts.jost),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+        SizedBox(
+          width: double.infinity,
+          height: 300,
+          child: Image.file(File(image!),
+              width: double.infinity,
+              height: double.infinity,
+              fit: BoxFit.cover),
+        ),
         const SizedBox(
           height: 40,
         ),
@@ -71,8 +55,7 @@ class _AddCategoriesImgState extends State<AddCategoriesImg> {
                           child: Text(
                             'Choos Profile Photo',
                             style: TextStyle(
-                                fontSize: 20, 
-                                fontWeight: FontWeight.w500),
+                                fontSize: 20, fontWeight: FontWeight.w500),
                           ),
                         ),
                         const SizedBox(
@@ -96,12 +79,11 @@ class _AddCategoriesImgState extends State<AddCategoriesImg> {
                                       size: 70.0,
                                     ),
                                   ),
-                                   Text('CAMERA',
+                                  Text('CAMERA',
                                   style: TextStyle(
                                     color: AppTheme.colors.appBlackColor,
                                     fontFamily: AppTheme.fonts.jost
-                                  ),
-                                  )
+                                  ),)
                                 ],
                               ),
                             ),
@@ -127,7 +109,8 @@ class _AddCategoriesImgState extends State<AddCategoriesImg> {
                                   style: TextStyle(
                                     color: AppTheme.colors.appBlackColor,
                                     fontFamily: AppTheme.fonts.jost
-                                  ),)
+                                  ),
+                                  )
                                 ],
                               ),
                             ),
@@ -146,7 +129,7 @@ class _AddCategoriesImgState extends State<AddCategoriesImg> {
               decoration: BoxDecoration(
                   color: AppTheme.colors.appButtonColor,
                   borderRadius: BorderRadius.circular(10)),
-              child:  Text("Add Photo",
+              child: Text("Add Photo",
                   style: TextStyle(
                     color: AppTheme.colors.appWhiteColor,
                   )),
@@ -164,8 +147,8 @@ class _AddCategoriesImgState extends State<AddCategoriesImg> {
     if (returnedImage == null) return;
     setState(
       () {
-        images = returnedImage.path;
-        widget.onImageSelected(images);
+        image = returnedImage.path;
+        widget.onImageSelected(image);
       },
     );
   }
@@ -177,8 +160,8 @@ class _AddCategoriesImgState extends State<AddCategoriesImg> {
     if (returnedImage == null) return;
     setState(
       () {
-        images = returnedImage.path;
-        widget.onImageSelected(images);
+        image = returnedImage.path;
+        widget.onImageSelected(image);
       },
     );
   }

@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
-class AddIngredients extends StatefulWidget {
-  final Function(List<TextEditingController>) onIngredientList;
-  const AddIngredients({super.key, required this.onIngredientList});
+class UpdateDirections extends StatefulWidget {
+  final Function(List<TextEditingController>) onDirectionList;
+  final List<String>editList;
+  const UpdateDirections({super.key, required this.editList,required this.onDirectionList});
 
   @override
-  State<AddIngredients> createState() => _AddIngredientsState();
+  State<UpdateDirections> createState() => _UpdateDirectionsState();
 }
 
-class _AddIngredientsState extends State<AddIngredients> {
+class _UpdateDirectionsState extends State<UpdateDirections> {
   List<TextEditingController> listController = [TextEditingController()];
-
+  @override
+  void initState() {
+    listController = widget.editList
+        .map((ingredients) => TextEditingController(text: ingredients))
+        .toList();
+    super.initState();
+  }
   @override
   void dispose() {
     for (var controller in listController) {
@@ -22,7 +29,7 @@ class _AddIngredientsState extends State<AddIngredients> {
 
   @override
   void setState(VoidCallback fn) {
-    widget.onIngredientList(listController);
+    widget.onDirectionList(listController);
     super.setState(fn);
   }
 
@@ -32,9 +39,10 @@ class _AddIngredientsState extends State<AddIngredients> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "Ingredients *",
+          "Direction *",
           style: TextStyle(
             fontWeight: FontWeight.bold,
+            color: Color(0xFF2E384E),
           ),
         ),
         const SizedBox(
@@ -52,16 +60,13 @@ class _AddIngredientsState extends State<AddIngredients> {
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: TextFormField(
                       controller: listController[index],
-                      decoration: InputDecoration(
-                        hintText: "Input Ingredient's Here",
-                        hintStyle: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            color: AppTheme.colors.appGreyColor),
+                      maxLines: null,
+                      decoration: const InputDecoration(
+                        hintText: "Input Text Here",
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter a Ingredients';
+                          return 'Please enter a Direction';
                         }
                         return null;
                       },
@@ -72,7 +77,7 @@ class _AddIngredientsState extends State<AddIngredients> {
                 const SizedBox(
                   width: 10,
                 ),
-                GestureDetector(
+                 GestureDetector(
                         onTap: () {
                           setState(() {
                             listController[index].clear();
@@ -84,7 +89,7 @@ class _AddIngredientsState extends State<AddIngredients> {
                           Icons.delete,
                           size: 25,
                         ),
-                      ),
+                      )
               ],
             );
           },
@@ -105,9 +110,7 @@ class _AddIngredientsState extends State<AddIngredients> {
                   color: AppTheme.colors.appButtonColor,
                   borderRadius: BorderRadius.circular(10)),
               child: Text("Add More",
-                  style: TextStyle(
-                    color: AppTheme.colors.appWhiteColor,
-                  )),
+                  style: TextStyle(color: AppTheme.colors.appWhiteColor)),
             ),
           ),
         ),

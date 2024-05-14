@@ -1,7 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:recipizz/utils/app_theme.dart';
 
 class UpdateCatImage extends StatefulWidget {
   final Function(String?) onImageSelected;
@@ -85,7 +85,12 @@ class _UpdateCatImageState extends State<UpdateCatImage> {
                                       size: 70.0,
                                     ),
                                   ),
-                                  const Text('CAMERA')
+                                 Text('CAMERA',
+                                  style: TextStyle(
+                                    color: AppTheme.colors.appBlackColor,
+                                    fontFamily: AppTheme.fonts.jost
+                                  ),
+                                  )
                                 ],
                               ),
                             ),
@@ -107,7 +112,11 @@ class _UpdateCatImageState extends State<UpdateCatImage> {
                                       size: 70.0,
                                     ),
                                   ),
-                                  const Text('GALLERY')
+                                  Text('GALLERY',
+                                  style: TextStyle(
+                                    color: AppTheme.colors.appBlackColor,
+                                    fontFamily: AppTheme.fonts.jost
+                                  ),)
                                 ],
                               ),
                             ),
@@ -124,11 +133,11 @@ class _UpdateCatImageState extends State<UpdateCatImage> {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
               decoration: BoxDecoration(
-                  color: const Color(0xFF444C60),
+                  color:AppTheme.colors.appButtonColor,
                   borderRadius: BorderRadius.circular(10)),
-              child: const Text("Add Photo",
+              child:  Text("Add Photo",
                   style: TextStyle(
-                    color: Color(0xFFF8F8FF),
+                    color:AppTheme.colors.appWhiteColor,
                   )),
             ),
           ),

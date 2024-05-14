@@ -30,7 +30,7 @@ class MyTextFieldWoutBrd extends StatelessWidget {
                   color: AppTheme.colors.appGreyColor)),
           validator: (value) {
             if (value == null || value.isEmpty) {
-              // return 'Please enter ${labelText}';
+              return 'Please enter $labelText';
             }
             return null;
           },

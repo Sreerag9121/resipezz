@@ -34,7 +34,18 @@ class _AdminRecipesMainPageState extends State<AdminRecipesMainPage> {
       appBar: AppBar(
         backgroundColor: AppTheme.colors.shadecolor,
         foregroundColor: AppTheme.colors.appWhiteColor,
-        title: const Text('Recipes'),
+        title: Text(
+          'Recipes',
+          style: TextStyle(fontFamily: AppTheme.fonts.jost),
+        ),
+        centerTitle: true,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+            )),
       ),
       body: FutureBuilder(
           future: _recipeFutureData,
@@ -46,10 +57,11 @@ class _AdminRecipesMainPageState extends State<AdminRecipesMainPage> {
                 child: Column(
                   children: [
                     AdminRecipeDetails(
-                        recipename: recipeData['name'],
-                        recipeImage: recipeData['recipeImage'],
-                        duration: recipeData['timeRequired'],
-                        serving: recipeData['serving'],),
+                      recipename: recipeData['name'],
+                      recipeImage: recipeData['recipeImage'],
+                      duration: recipeData['timeRequired'],
+                      serving: recipeData['serving'],
+                    ),
                     AdminRecipesIngredients(
                         ingredientsItems: recipeData['ingredient']),
                     AdminRecipeDirection(
@@ -59,14 +71,18 @@ class _AdminRecipesMainPageState extends State<AdminRecipesMainPage> {
                       padding: const EdgeInsets.only(top: 10),
                       width: 300,
                       child: ElevatedButton.icon(
-                        onPressed: () async{
+                        onPressed: () async {
                           await recipesCurdOp.deleteRcipes(widget.recipeId!);
-                          await recipesCurdOp.deleteRecipeImage(recipeData['recipeImage']);
+                          await recipesCurdOp
+                              .deleteRecipeImage(recipeData['recipeImage']);
                           // ignore: use_build_context_synchronously
                           Navigator.pop(context);
                         },
                         icon: const Icon(Icons.delete_outline),
-                        label: const Text('Delete'),
+                        label: Text(
+                          'Delete',
+                          style: TextStyle(fontFamily: AppTheme.fonts.jost),
+                        ),
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 AppTheme.colors.appRedColor),
@@ -78,15 +94,16 @@ class _AdminRecipesMainPageState extends State<AdminRecipesMainPage> {
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       width: 300,
                       child: ElevatedButton(
-                        onPressed: () {
-
-                        },
+                        onPressed: () {},
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 AppTheme.colors.appGreenColor),
                             foregroundColor: MaterialStateProperty.all<Color>(
-                                AppTheme.colors.appWhiteColor)),                     
-                        child: const Text('Make This Today Special'),
+                                AppTheme.colors.appWhiteColor)),
+                        child: Text(
+                          'Make This Today Special',
+                          style: TextStyle(fontFamily: AppTheme.fonts.jost),
+                        ),
                       ),
                     )
                   ],

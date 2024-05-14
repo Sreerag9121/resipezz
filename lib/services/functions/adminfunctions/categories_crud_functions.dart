@@ -27,10 +27,10 @@ class CategoriesCrud {
         'datetime': uniqueTime,
       };
       await _categoriesReference.add(dataToSend);
-      Navigator.of(context).pop();
     } catch (e) {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('No images: $e')));
+          .showSnackBar(SnackBar(content: Text('$e')));
     }
   }
 
@@ -66,6 +66,7 @@ class CategoriesCrud {
       'image': updateImage
     };
     await updateCategories.update(dataToUpdate);
+    // ignore: use_build_context_synchronously
     Navigator.pop(context);
   }
 }

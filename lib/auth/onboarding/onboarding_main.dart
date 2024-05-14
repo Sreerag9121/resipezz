@@ -59,7 +59,8 @@ class _OnBoardingMainState extends State<OnBoardingMain> {
           }, 
           child: Text(
             style: TextStyle(
-              color: AppTheme.colors.appWhiteColor
+              color: AppTheme.colors.appWhiteColor,
+              fontFamily: AppTheme.fonts.jost,
             ),
            'GET STARTED' 
           )
@@ -75,7 +76,12 @@ class _OnBoardingMainState extends State<OnBoardingMain> {
               onPressed: (){
                 controller.jumpToPage(2);
               },
-               child: const Text('SKIP'),
+               child:  Text('SKIP',
+               style: TextStyle(
+                color: AppTheme.colors.appBlackColor,
+                fontFamily: AppTheme.fonts.jost
+               ),
+               ),
                ),
                Center(
                 child: SmoothPageIndicator(
@@ -99,7 +105,12 @@ class _OnBoardingMainState extends State<OnBoardingMain> {
                   duration: const Duration(microseconds: 500),
                    curve: Curves.easeInOut);
               },
-               child: const Text('NEXT'),
+               child: Text('NEXT',
+               style: TextStyle(
+                color: AppTheme.colors.appBlackColor,
+                fontFamily: AppTheme.fonts.jost
+               ),
+               ),
                )
           ],
         ),

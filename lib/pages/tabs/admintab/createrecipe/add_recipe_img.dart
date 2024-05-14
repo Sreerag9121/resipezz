@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recipizz/utils/app_theme.dart';
@@ -10,7 +9,6 @@ class AddRecipeImg extends StatefulWidget {
     super.key,
     required this.onImageSelectedResipe,
   });
-
 
   @override
   State<AddRecipeImg> createState() => _AddRecipeImgState();
@@ -31,9 +29,31 @@ class _AddRecipeImgState extends State<AddRecipeImg> {
                     height: double.infinity,
                     fit: BoxFit.cover),
               )
-            : const Center(
-                child: Text('*Add Recipes Photo Here'),
-              ),const SizedBox(height: 40,),
+            : Container(
+                width: double.infinity,
+                height: 300,
+                decoration: BoxDecoration(border: Border.all(
+                  color: AppTheme.colors.appGreyColor
+                )),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.photo_library_outlined,
+                      color: AppTheme.colors.appGreyColor,),
+                      Text(
+                        '*Add Recipes Photo Here',
+                        style: TextStyle(
+                          color: AppTheme.colors.appGreyColor,
+                          fontFamily: AppTheme.fonts.jost),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+        const SizedBox(
+          height: 40,
+        ),
         GestureDetector(
           onTap: () {
             setState(() {
@@ -66,15 +86,19 @@ class _AddRecipeImgState extends State<AddRecipeImg> {
 
                                   IconButton(
                                     onPressed: () {
-                                         _pickImageFromCamera();
-                                      Navigator.of(context).pop();                                         
+                                      _pickImageFromCamera();
+                                      Navigator.of(context).pop();
                                     },
                                     icon: const Icon(
                                       Icons.camera,
                                       size: 70.0,
                                     ),
                                   ),
-                                  const Text('CAMERA')
+                                  Text(
+                                    'CAMERA',
+                                    style: TextStyle(
+                                        fontFamily: AppTheme.fonts.jost),
+                                  )
                                 ],
                               ),
                             ),
@@ -88,15 +112,19 @@ class _AddRecipeImgState extends State<AddRecipeImg> {
 
                                   IconButton(
                                     onPressed: () {
-                                        _pickImageFromGallery();
-                                      Navigator.of(context).pop();                      
+                                      _pickImageFromGallery();
+                                      Navigator.of(context).pop();
                                     },
                                     icon: const Icon(
                                       Icons.photo,
                                       size: 70.0,
                                     ),
                                   ),
-                                  const Text('GALLERY')
+                                  Text(
+                                    'GALLERY',
+                                    style: TextStyle(
+                                        fontFamily: AppTheme.fonts.jost),
+                                  )
                                 ],
                               ),
                             ),
@@ -115,7 +143,7 @@ class _AddRecipeImgState extends State<AddRecipeImg> {
               decoration: BoxDecoration(
                   color: AppTheme.colors.appButtonColor,
                   borderRadius: BorderRadius.circular(10)),
-              child:Text("Add Photo",
+              child: Text("Add Photo",
                   style: TextStyle(
                     color: AppTheme.colors.appWhiteColor,
                   )),
@@ -125,7 +153,8 @@ class _AddRecipeImgState extends State<AddRecipeImg> {
       ],
     );
   }
-    bool validateImage() {
+
+  bool validateImage() {
     if (image == null || image!.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

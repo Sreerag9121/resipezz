@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:recipizz/pages/other/admin/filter/category_filter.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
 class AdminCategoriHome extends StatefulWidget {
@@ -29,8 +30,11 @@ class _AdminCategoriHomeState extends State<AdminCategoriHome> {
             child: Text('Some error occurred ${snapshot.error}'),
           );
         }
-        if(!snapshot.hasData){
-          return const Center(child: Text('No Categories'),);
+        if (!snapshot.hasData) {
+          return Center(
+            child: Text('No Categories',
+                style: TextStyle(fontFamily: AppTheme.fonts.jost)),
+          );
         }
         if (snapshot.hasData) {
           QuerySnapshot<Object?>? querySnapshot = snapshot.data;
@@ -42,40 +46,50 @@ class _AdminCategoriHomeState extends State<AdminCategoriHome> {
                     'image': element['image']
                   })
               .toList();
-    
+
           return ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: items.length,
             itemBuilder: (BuildContext context, int index) {
               Map thisItem = items[index];
-    
+
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: SizedBox(
                   height: 200,
-                  child: Card(
-                    color: AppTheme.colors.shadecolor,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Column(
-                        children: [
-                          Image.network(
-                            thisItem['image'],
-                            width: 150,
-                            height: 70,
-                            fit: BoxFit.cover,
-                          ),
-                          Center(
-                            child: Text(
-                              thisItem['name'],
-                              style:  TextStyle(
-                                color: AppTheme.colors.appWhiteColor,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CategoryFilter(
+                                    categoryName: thisItem['name'],
+                                  )));
+                    },
+                    child: Card(
+                      color: AppTheme.colors.shadecolor,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Column(
+                          children: [
+                            Image.network(
+                              thisItem['image'],
+                              width: 150,
+                              height: 70,
+                              fit: BoxFit.cover,
+                            ),
+                            Center(
+                              child: Text(
+                                thisItem['name'],
+                                style: TextStyle(
+                                  color: AppTheme.colors.appWhiteColor,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),

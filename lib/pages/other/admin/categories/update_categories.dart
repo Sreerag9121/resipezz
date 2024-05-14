@@ -102,7 +102,11 @@ class _UpdateCategoriesState extends State<UpdateCategories> {
                                       
                                     });
                               },
-                              child: const Text('Update'))
+                              child:  Text('Update',
+                              style: TextStyle(
+                                    color: AppTheme.colors.appBlackColor,
+                                    fontFamily: AppTheme.fonts.jost
+                                  ),))
                         ],
                       ),
                     ),

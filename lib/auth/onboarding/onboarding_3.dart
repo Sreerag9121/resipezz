@@ -4,17 +4,14 @@ import 'package:recipizz/utils/app_theme.dart';
 class OnBoardingPage3 extends StatelessWidget {
   const OnBoardingPage3({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
       color: AppTheme.colors.appWhiteColor,
-       width: double.infinity,
-        height: double.infinity,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const SizedBox(
-              height: 200,
-            ),
             Container(
               alignment: Alignment.center, 
               margin: const EdgeInsets.only(left: 20),        
@@ -22,9 +19,7 @@ class OnBoardingPage3 extends StatelessWidget {
               height: 300,
               child: Image.asset('assets/images/onboardingimgs/serve.png'),
             ),
-            const SizedBox(
-              height: 55,
-            ),
+
             Text(
               style: TextStyle(
                 fontFamily: AppTheme.fonts.mulish,
@@ -33,18 +28,20 @@ class OnBoardingPage3 extends StatelessWidget {
                 letterSpacing: 10
               ),
               'SERVE'),
-              const SizedBox(
-                height: 40,
-              ),
-              const SizedBox(
-                width: 350,
-                child: Text(
-                  textAlign: TextAlign.center,
-                  'Delight guests with exquisite dishes served with finesse and flair.'
-                ),
-              ),
+              Container(
+            margin: const EdgeInsets.only(top: 90,bottom: 20),
+            width: 350,
+            child: Text(
+              textAlign: TextAlign.center,
+              'Delight guests with exquisite dishes served with finesse and flair.',
+              style: TextStyle(
+                  color: AppTheme.colors.appBlackColor,
+                  fontFamily: AppTheme.fonts.jost),
+            ),
+          ),
           ],
         ),
     );
   }
 }
+// 

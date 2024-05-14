@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
-class AddIngredients extends StatefulWidget {
+class UpdateIngredients extends StatefulWidget {
   final Function(List<TextEditingController>) onIngredientList;
-  const AddIngredients({super.key, required this.onIngredientList});
+  final List<String> editList;
+  const UpdateIngredients(
+      {super.key, required this.onIngredientList, required this.editList});
 
   @override
-  State<AddIngredients> createState() => _AddIngredientsState();
+  State<UpdateIngredients> createState() => _UpdateIngredientsState();
 }
 
-class _AddIngredientsState extends State<AddIngredients> {
-  List<TextEditingController> listController = [TextEditingController()];
+class _UpdateIngredientsState extends State<UpdateIngredients> {
+  List<TextEditingController> listController = [];
+  @override
+  void initState() {
+    listController = widget.editList
+        .map((ingredients) => TextEditingController(text: ingredients))
+        .toList();
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -73,18 +82,18 @@ class _AddIngredientsState extends State<AddIngredients> {
                   width: 10,
                 ),
                 GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            listController[index].clear();
-                            listController[index].dispose();
-                            listController.removeAt(index);
-                          });
-                        },
-                        child: const Icon(
-                          Icons.delete,
-                          size: 25,
-                        ),
-                      ),
+                  onTap: () {
+                    setState(() {
+                      listController[index].clear();
+                      listController[index].dispose();
+                      listController.removeAt(index);
+                    });
+                  },
+                  child: const Icon(
+                    Icons.delete,
+                    size: 25,
+                  ),
+                ),
               ],
             );
           },

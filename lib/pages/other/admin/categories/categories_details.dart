@@ -19,15 +19,16 @@ class _CategoriesDetailsState extends State<CategoriesDetails> {
   @override
   void initState() {
     super.initState();
-    _catReferance =
-        FirebaseFirestore.instance.collection('categories').doc(widget.catIdDetail);
+    _catReferance = FirebaseFirestore.instance
+        .collection('categories')
+        .doc(widget.catIdDetail);
     _catFutureData = _catReferance.get();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppBar(
+      appBar: AppBar(
         backgroundColor: AppTheme.colors.shadecolor,
         centerTitle: true,
         title: Text(
@@ -39,11 +40,12 @@ class _CategoriesDetailsState extends State<CategoriesDetails> {
           ),
         ),
         leading: IconButton(
-          onPressed: ()=>Navigator.of(context).pop(),
-         icon:Icon(Icons.arrow_back,
-          size: 25,
-          color: AppTheme.colors.appWhiteColor,) 
-        ),
+            onPressed: () => Navigator.of(context).pop(),
+            icon: Icon(
+              Icons.arrow_back,
+              size: 25,
+              color: AppTheme.colors.appWhiteColor,
+            )),
       ),
       body: FutureBuilder(
           future: _catFutureData,
@@ -59,7 +61,10 @@ class _CategoriesDetailsState extends State<CategoriesDetails> {
                       SizedBox(
                         width: 300,
                         height: 200,
-                        child: Image.network(catData['image']!,fit: BoxFit.fill,),
+                        child: Image.network(
+                          catData['image']!,
+                          fit: BoxFit.fill,
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -71,10 +76,9 @@ class _CategoriesDetailsState extends State<CategoriesDetails> {
                             child: Text(
                               catData['categoriesName'],
                               style: TextStyle(
-                                color: AppTheme.colors.appWhiteColor,
-                                fontFamily: AppTheme.fonts.jost,
-                                fontSize: 30
-                              ),
+                                  color: AppTheme.colors.appWhiteColor,
+                                  fontFamily: AppTheme.fonts.jost,
+                                  fontSize: 30),
                             ),
                           ),
                         ),
@@ -86,26 +90,42 @@ class _CategoriesDetailsState extends State<CategoriesDetails> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           ElevatedButton.icon(
-                            onPressed: (){
-                              Navigator.pushReplacement(context, 
-                              MaterialPageRoute(builder: (context)=> UpdateCategories(widget.catIdDetail!,)));
-                            }, 
-                            icon: const Icon(Icons.edit_outlined), 
-                            label: const Text('Edit'),
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => UpdateCategories(
+                                            widget.catIdDetail!,
+                                          )));
+                            },
+                            icon: const Icon(Icons.edit_outlined),
+                            label: Text(
+                              'Edit',
+                              style: TextStyle(
+                                  color: AppTheme.colors.appBlackColor,
+                                  fontFamily: AppTheme.fonts.jost),
                             ),
-                            ElevatedButton.icon(
-                            onPressed: ()async{                           
-                              await categoriesCRUD.deleteCategories(widget.catIdDetail!);
-                             await categoriesCRUD.deleteImage(catData['image']!);
-                             // ignore: use_build_context_synchronously
-                             Navigator.pop(context);
-                            }, 
-                            icon: const Icon(Icons.delete_outline_sharp), 
-                            label: const Text('Delete'),
+                          ),
+                          ElevatedButton.icon(
+                            onPressed: () async {
+                              await categoriesCRUD
+                                  .deleteCategories(widget.catIdDetail!);
+                              await categoriesCRUD
+                                  .deleteImage(catData['image']!);
+                              // ignore: use_build_context_synchronously
+                              Navigator.pop(context);
+                            },
+                            icon: const Icon(Icons.delete_outline_sharp),
+                            label: Text(
+                              'Delete',
+                              style: TextStyle(
+                                  color: AppTheme.colors.appBlackColor,
+                                  fontFamily: AppTheme.fonts.jost),
                             ),
+                          ),
                         ],
                       )
-                      ],
+                    ],
                   ),
                 ),
               );

@@ -41,7 +41,8 @@ class _CategotiesMainState extends State<CategotiesMain> {
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Center(
-              child: Text('Some error occurred ${snapshot.error}'),
+              child: Text('Some error occurred ${snapshot.error}',
+              style: TextStyle(fontFamily: AppTheme.fonts.jost),),
             );
           }
           if (snapshot.hasData) {
@@ -107,7 +108,8 @@ class _CategotiesMainState extends State<CategotiesMain> {
             );
           }
 
-          return const Center(child: Text('Add Items'));
+          return Center(child: Text('Add Items',
+          style: TextStyle(fontFamily: AppTheme.fonts.jost),));
         },
       ),
       floatingActionButton: FloatingActionButton(

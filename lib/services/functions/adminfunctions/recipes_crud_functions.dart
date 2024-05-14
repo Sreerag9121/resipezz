@@ -17,7 +17,8 @@ class RecipesCurdOp {
       String recipeImagePath,
       List<TextEditingController> recipeIngredients,
       List<TextEditingController> recipeDirection,
-      TextEditingController categoresTagController) async {
+      String categoresTagController,
+      BuildContext context) async {
     List<String> recipeIngredientList = [];
     List<String> recipeDirectionList = [];
     Reference recipeImageRef =
@@ -30,7 +31,7 @@ class RecipesCurdOp {
       String recipeName = recipeNameController.text;
       String serving = servingController.text;
       String timeReqd = timeRequiredController.text;
-      String categoriesTag = categoresTagController.text;
+      String categoriesTag = categoresTagController;
       recipeIngredientList.clear();
       for (var controllers in recipeIngredients) {
         recipeIngredientList.add(controllers.text);
@@ -50,7 +51,10 @@ class RecipesCurdOp {
         'categoriesTag': categoriesTag
       };
       await _recipeReferance.add(dataTosend);
-    } catch (e) {}
+    } catch (e) {
+       ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('No images: $e')));
+    }
   }
 
   Future<void> deleteRcipes(String id) async {

@@ -16,7 +16,8 @@ class _AsignOutButtonState extends State<AsignOutButton> {
     return Scaffold(
       backgroundColor: AppTheme.colors.shadecolor,
       body: AlertDialog(
-                  title: const Text('Sign Out'),
+                  title:Text('Sign Out',
+                  style: TextStyle(fontFamily:AppTheme.fonts.jost),),
                   content: const Text('Are you sure wanted to signout'),
                   actions: [
                     TextButton(

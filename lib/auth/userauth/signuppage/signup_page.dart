@@ -89,7 +89,6 @@ class _SignUpPageState extends State<SignUpPage> {
                     MyTextField(
                       controllers: _usernamecontoller,
                       hintText: 'Enter Username',
-                      obscureText: false,
                       labelText: 'Username',
                       prefixIconData: Icons.account_circle_outlined,
                       keyboardType: TextInputType.text,
@@ -103,7 +102,6 @@ class _SignUpPageState extends State<SignUpPage> {
                     MyTextField(
                       controllers: _emailcontroller,
                       hintText: 'Enter Email',
-                      obscureText: false,
                       labelText: 'Email',
                       prefixIconData: Icons.email_outlined,
                       keyboardType: TextInputType.emailAddress,
@@ -116,7 +114,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     MyTextField(
                       controllers: _passwordcontroller,
                       hintText: 'Enter Password',
-                      obscureText: false,
+                      obscureText: true,
                       labelText: 'Password',
                       prefixIconData: Icons.lock_outline,
                       keyboardType: TextInputType.text,
@@ -128,7 +126,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     MyTextField(
                       controllers: _repasswordcontroller,
                       hintText: 'Enter Password Again',
-                      obscureText: false,
+                      obscureText: true,
                       labelText: 'Password',
                       prefixIconData: Icons.lock_outline,
                       keyboardType: TextInputType.text,
