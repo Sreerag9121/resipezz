@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
-class UserRecipeDetails extends StatelessWidget {
+class HiveRecipeDetails extends StatelessWidget {
   final String? recipename;
   final String? recipeImage;
   final String? duration;
   final String? serving;
-  const UserRecipeDetails(
+  const HiveRecipeDetails(
       {super.key,
       required this.recipename,
       required this.recipeImage,
@@ -24,7 +24,7 @@ class UserRecipeDetails extends StatelessWidget {
         SizedBox(
           width: double.infinity,
           height: 300,
-          child: Image.file(File(recipeImage!)),
+          child: Image.file(File(recipeImage!),fit: BoxFit.fill,),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),

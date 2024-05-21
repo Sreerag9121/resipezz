@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipizz/pages/tabs/admintab/createrecipe/add_description.dart';
 import 'package:recipizz/pages/tabs/admintab/createrecipe/add_directions.dart';
 import 'package:recipizz/pages/tabs/admintab/createrecipe/add_ingredients.dart';
 import 'package:recipizz/pages/tabs/admintab/createrecipe/add_recipe_img.dart';
@@ -21,6 +22,7 @@ class _CreateRecipeMainState extends State<CreateRecipeMain> {
   final _recipenamecontoller = TextEditingController();
   final _servingcontoller = TextEditingController();
   final _durationcontoller = TextEditingController();
+  final _descriptionController=TextEditingController();
   String category = '';
   List<TextEditingController> ingreadientsController = [];
   List<TextEditingController> directionsController = [];
@@ -90,6 +92,7 @@ class _CreateRecipeMainState extends State<CreateRecipeMain> {
                     directionsController = directioncontroller;
                   });
                 }),
+                AddRecipeDescription(controllers: _descriptionController,),
                 const SizedBox(
                   height: 30,
                 ),
@@ -138,14 +141,15 @@ class _CreateRecipeMainState extends State<CreateRecipeMain> {
                                   isLoading = true;
                                 });
                                 await recipesCurdOp.addRecipeMethod(
-                                  _recipenamecontoller,
-                                  _servingcontoller,
-                                  _durationcontoller,
-                                  recipeImagePath,
-                                  ingreadientsController,
-                                  directionsController,
-                                  category,
-                                  context,
+                                 recipeNameController:  _recipenamecontoller,
+                                  servingController:_servingcontoller,
+                                  timeRequiredController:_durationcontoller,
+                                  descriptionController: _descriptionController,
+                                  recipeImagePath:recipeImagePath,
+                                  recipeIngredients:ingreadientsController,
+                                  recipeDirection:directionsController,
+                                  categoresTagController:category,
+                                  context:context,
                                 );
                                 setState(() {
                                   isLoading = false;

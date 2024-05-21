@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:recipizz/pages/other/admin/recipedetail/recipe_description.dart';
 import 'package:recipizz/pages/other/admin/recipedetail/recipe_details.dart';
 import 'package:recipizz/pages/other/admin/recipedetail/recipe_direction.dart';
 import 'package:recipizz/pages/other/admin/recipedetail/recipe_ingredients.dart';
+import 'package:recipizz/pages/tabs/admintab/adminnavbar/adminnavbar.dart';
 import 'package:recipizz/services/functions/adminfunctions/categories_crud_functions.dart';
 import 'package:recipizz/services/functions/adminfunctions/recipes_crud_functions.dart';
+import 'package:recipizz/services/functions/adminfunctions/today_special_fn.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
 class AdminRecipesMainPage extends StatefulWidget {
@@ -18,6 +21,7 @@ class AdminRecipesMainPage extends StatefulWidget {
 class _AdminRecipesMainPageState extends State<AdminRecipesMainPage> {
   final RecipesCurdOp recipesCurdOp = RecipesCurdOp();
   final CategoriesCrud categoriesCRUD = CategoriesCrud();
+  final TodaySpecialCurd todaySpecialCurd = TodaySpecialCurd();
   late DocumentReference _recipeReferance;
   late Future<DocumentSnapshot> _recipeFutureData;
   @override
@@ -67,43 +71,42 @@ class _AdminRecipesMainPageState extends State<AdminRecipesMainPage> {
                     AdminRecipeDirection(
                         recipesDirection: recipeData['directions'],
                         timeRequired: recipeData['timeRequired']),
-                    Container(
-                      padding: const EdgeInsets.only(top: 10),
-                      width: 300,
-                      child: ElevatedButton.icon(
-                        onPressed: () async {
-                          await recipesCurdOp.deleteRcipes(widget.recipeId!);
-                          await recipesCurdOp
-                              .deleteRecipeImage(recipeData['recipeImage']);
-                          // ignore: use_build_context_synchronously
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(Icons.delete_outline),
-                        label: Text(
-                          'Delete',
-                          style: TextStyle(fontFamily: AppTheme.fonts.jost),
-                        ),
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                AppTheme.colors.appRedColor),
-                            foregroundColor: MaterialStateProperty.all<Color>(
-                                AppTheme.colors.appWhiteColor)),
+                    RecipeDescription(description: recipeData['description']),
+                    ElevatedButton.icon(
+                      onPressed: () async {
+                        await recipesCurdOp.deleteRcipes(widget.recipeId!);
+                        await recipesCurdOp
+                            .deleteRecipeImage(recipeData['recipeImage']);
+                        // ignore: use_build_context_synchronously
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(Icons.delete_outline),
+                      label: Text(
+                        ' Delete ',
+                        style: TextStyle(fontFamily: AppTheme.fonts.jost),
                       ),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              AppTheme.colors.appRedColor),
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                              AppTheme.colors.appWhiteColor)),
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      width: 300,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                AppTheme.colors.appGreenColor),
-                            foregroundColor: MaterialStateProperty.all<Color>(
-                                AppTheme.colors.appWhiteColor)),
-                        child: Text(
-                          'Make This Today Special',
-                          style: TextStyle(fontFamily: AppTheme.fonts.jost),
-                        ),
+                    ElevatedButton(
+                      onPressed: () async {
+                          await todaySpecialCurd.updateTodaySpecial(
+                            recipeId: widget.recipeId!);
+                        // ignore: use_build_context_synchronously
+                        Navigator.pushReplacement(context, 
+                        MaterialPageRoute(builder: (context)=>const AdminNavBar()));
+                      },
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              AppTheme.colors.shadecolor),
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                              AppTheme.colors.appWhiteColor)),
+                      child: Text(
+                        'Make Today Special',
+                        style: TextStyle(fontFamily: AppTheme.fonts.jost),
                       ),
                     )
                   ],

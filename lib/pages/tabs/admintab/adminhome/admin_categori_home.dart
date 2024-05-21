@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:recipizz/pages/other/admin/filter/category_filter.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
@@ -72,11 +73,21 @@ class _AdminCategoriHomeState extends State<AdminCategoriHome> {
                         borderRadius: BorderRadius.circular(8),
                         child: Column(
                           children: [
-                            Image.network(
-                              thisItem['image'],
+                            SizedBox(
                               width: 150,
                               height: 70,
-                              fit: BoxFit.cover,
+                              child: Image.network(
+                                thisItem['image'],
+                                fit: BoxFit.cover,
+                                loadingBuilder: (context, child,loadingProgress) =>
+                                    (loadingProgress == null)
+                                        ? child
+                                        : Center(
+                                            child: Icon(
+                                            Icons.photo,
+                                            color: AppTheme.colors.appGreyColor,
+                                          )),
+                              ),
                             ),
                             Center(
                               child: Text(

@@ -11,7 +11,8 @@ part 'recipes_hive.g.dart';
     required this.duration,
     required this.imagePath,
     required this.ingredients,
-    required this.directions
+    required this.directions,
+    required this.description,
   });
   @HiveField(0)
   String recipeName;
@@ -30,5 +31,8 @@ List<String>ingredients;
 
  @HiveField(5)
 List<String>directions;
+
+ @HiveField(6)
+String description;
 
  }

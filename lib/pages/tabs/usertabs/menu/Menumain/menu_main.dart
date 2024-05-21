@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recipizz/pages/other/user/aboutus/about_us_main.dart';
 import 'package:recipizz/pages/other/user/myprofile/my_profile_main.dart';
 import 'package:recipizz/pages/other/user/userpassword/user_pass_main.dart';
-import 'package:recipizz/pages/other/user/hiverecipeadd/user_recipe_show_main.dart';
+import 'package:recipizz/pages/other/user/hiverecipeadd/my_recipes.dart';
 import 'package:recipizz/pages/tabs/usertabs/menu/Menumain/menu_signout.dart';
 import 'package:recipizz/pages/tabs/usertabs/menu/Menumain/menu_userprofile.dart';
 import 'package:recipizz/utils/app_theme.dart';
@@ -20,7 +20,7 @@ final List<Menuitems>menuitems=[
    Menuitems(
     title: 'My Recipes',
      icon:Icons.logout_outlined,
-     mnuitmnav: const UserRecipeMain(),
+     mnuitmnav: const HiveUserRecipeMain(),
     ),
   Menuitems(
     title: 'My Profile',

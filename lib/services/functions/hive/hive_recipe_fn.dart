@@ -8,14 +8,15 @@ class Boxes {
 }
 
 class UserRecipeCrud {
-  Future<void> addRecipeHive(
-    TextEditingController recipeNameController,
-    TextEditingController servingController,
-    TextEditingController timeRequiredController,
-    String recipeImagePath,
-    List<TextEditingController> recipeIngredients,
-    List<TextEditingController> recipeDirection,
-  ) async {
+  Future<void> addRecipeHive({
+   required TextEditingController recipeNameController,
+   required  TextEditingController servingController,
+   required  TextEditingController timeRequiredController,
+   required  TextEditingController descriptionController,
+   required  String recipeImagePath,
+   required  List<TextEditingController> recipeIngredients,
+   required  List<TextEditingController> recipeDirection,
+  }) async {
     List<String> recipeIngredientList = [];
     List<String> recipeDirectionList = [];
     String uniqueTime = DateTime.now().microsecondsSinceEpoch.toString();
@@ -33,18 +34,21 @@ class UserRecipeCrud {
             duration: timeRequiredController.text,
             imagePath: recipeImagePath,
             ingredients: recipeIngredientList,
-            directions: recipeDirectionList));
+            directions: recipeDirectionList,
+            description: descriptionController.text
+            ));
   }
 
-  Future<void> UpdateRecipeHive(
-    String index,
-    TextEditingController recipeNameController,
-    TextEditingController servingController,
-    TextEditingController timeRequiredController,
-    String recipeImagePath,
-    List<String> recipeIngredients,
-    List<String> recipeDirection,
-  ) async {
+  Future<void> updateRecipeHive({
+   required String index,
+   required TextEditingController recipeNameController,
+   required TextEditingController servingController,
+   required TextEditingController timeRequiredController,
+   required TextEditingController descriptionController,
+   required String recipeImagePath,
+   required List<String> recipeIngredients,
+   required List<String> recipeDirection,
+  }) async {
     RecipeModel recipes = recipeBox.getAt(int.parse(index))!;
      recipes.recipeName=recipeNameController.text;
      recipes.serving=servingController.text;
@@ -52,6 +56,6 @@ class UserRecipeCrud {
      recipes.imagePath=(recipeImagePath.isNotEmpty)?recipeImagePath:recipes.imagePath;
     recipes.ingredients=(recipeIngredients.isEmpty)?recipes.ingredients:recipeIngredients;
     recipes.directions=(recipeDirection.isEmpty)?recipes.directions:recipeDirection;
-
+    recipes.description=descriptionController.text;
   }
 }

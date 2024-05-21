@@ -97,7 +97,7 @@ String recipeName='';
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const AdminTodaySpl(),
+                          const TodaySpeciaMain(),
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 8),

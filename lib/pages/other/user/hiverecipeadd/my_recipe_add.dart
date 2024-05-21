@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipizz/pages/tabs/admintab/createrecipe/add_description.dart';
 import 'package:recipizz/pages/tabs/admintab/createrecipe/add_directions.dart';
 import 'package:recipizz/pages/tabs/admintab/createrecipe/add_ingredients.dart';
 import 'package:recipizz/pages/tabs/admintab/createrecipe/add_recipe_img.dart';
@@ -6,20 +7,21 @@ import 'package:recipizz/services/functions/hive/hive_recipe_fn.dart';
 import 'package:recipizz/utils/app_theme.dart';
 import 'package:recipizz/widgets/text_field_without_border.dart';
 
-class UserCreateRecipeMain extends StatefulWidget {
-  const UserCreateRecipeMain({super.key});
+class HiveAddRecipeMain extends StatefulWidget {
+  const HiveAddRecipeMain({super.key});
 
   @override
-  State<UserCreateRecipeMain> createState() => _UserCreateRecipeMainState();
+  State<HiveAddRecipeMain> createState() => _HiveAddRecipeMainState();
 }
 
-class _UserCreateRecipeMainState extends State<UserCreateRecipeMain> {
+class _HiveAddRecipeMainState extends State<HiveAddRecipeMain> {
   final UserRecipeCrud userRecipeCrud = UserRecipeCrud();
   bool isLoading = false;
   final _formKey = GlobalKey<FormState>();
   final _recipenamecontoller = TextEditingController();
   final _servingcontoller = TextEditingController();
   final _durationcontoller = TextEditingController();
+  final _descriptionController=TextEditingController();
   List<TextEditingController> ingreadientsController = [];
   List<TextEditingController> directionsController = [];
   List<String> ingreadientList = [];
@@ -83,6 +85,9 @@ class _UserCreateRecipeMainState extends State<UserCreateRecipeMain> {
                     directionsController = directioncontroller;
                   });
                 }),
+                AddRecipeDescription(
+                  controllers: _descriptionController
+                  ),
                 const SizedBox(
                   height: 30,
                 ),
@@ -109,12 +114,13 @@ class _UserCreateRecipeMainState extends State<UserCreateRecipeMain> {
                             );
                           } else {
                             userRecipeCrud.addRecipeHive(
-                              _recipenamecontoller,
-                              _servingcontoller,
-                              _durationcontoller,
-                              recipeImagePath,
-                              ingreadientsController,
-                              directionsController,
+                              recipeNameController:_recipenamecontoller,
+                              servingController:_servingcontoller,
+                              timeRequiredController:_durationcontoller,
+                              recipeImagePath:recipeImagePath,
+                              recipeIngredients:ingreadientsController,
+                              recipeDirection:directionsController,
+                              descriptionController: _descriptionController
                             );
                             Navigator.pop(context);
                           }

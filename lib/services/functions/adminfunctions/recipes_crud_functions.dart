@@ -10,15 +10,16 @@ class RecipesCurdOp {
 
   String recipeImageUrl = '';
 
-  Future<void> addRecipeMethod(
-      TextEditingController recipeNameController,
-      TextEditingController servingController,
-      TextEditingController timeRequiredController,
-      String recipeImagePath,
-      List<TextEditingController> recipeIngredients,
-      List<TextEditingController> recipeDirection,
-      String categoresTagController,
-      BuildContext context) async {
+  Future<void> addRecipeMethod({
+     required TextEditingController recipeNameController,
+     required TextEditingController servingController,
+    required  TextEditingController timeRequiredController,
+     required TextEditingController descriptionController,
+     required String recipeImagePath,
+     required List<TextEditingController> recipeIngredients,
+     required List<TextEditingController> recipeDirection,
+     required String categoresTagController,
+     required BuildContext context}) async {
     List<String> recipeIngredientList = [];
     List<String> recipeDirectionList = [];
     Reference recipeImageRef =
@@ -32,6 +33,7 @@ class RecipesCurdOp {
       String serving = servingController.text;
       String timeReqd = timeRequiredController.text;
       String categoriesTag = categoresTagController;
+      String descriptions=descriptionController.text;
       recipeIngredientList.clear();
       for (var controllers in recipeIngredients) {
         recipeIngredientList.add(controllers.text);
@@ -48,6 +50,7 @@ class RecipesCurdOp {
         'recipeImage': recipeImageUrl,
         'ingredient': recipeIngredientList,
         'directions': recipeDirectionList,
+        'description':descriptions,
         'categoriesTag': categoriesTag
       };
       await _recipeReferance.add(dataTosend);

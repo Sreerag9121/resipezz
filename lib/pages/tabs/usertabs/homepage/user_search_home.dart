@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:recipizz/pages/other/user/recipesmainpage/recipes_main.dart';
+import 'package:recipizz/pages/other/user/recipesdetailspage/recipes_main.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
 class UserSearchShow extends StatefulWidget {
@@ -23,13 +23,11 @@ class _UserSearchShowState extends State<UserSearchShow> {
             child: CircularProgressIndicator(),
           );
         }
-        
         if (!snapshot.hasData || snapshot.data == null) {
           return const Center(
-            child: Text('No data available'),
+            child: Text('No Data Available'),
           );
         }
-
         QuerySnapshot<Map<String, dynamic>> querySnapshot = snapshot.data!;
         List<QueryDocumentSnapshot<Map<String, dynamic>>> documents = querySnapshot.docs;
         List<Map<String, dynamic>> items = documents.map((e) => {
@@ -39,22 +37,30 @@ class _UserSearchShowState extends State<UserSearchShow> {
           'time': e['timeRequired'],
         }).toList();
 
+        List<Map<String, dynamic>> filteredItems = items.where((item) {
+          return widget.searchData.isEmpty || item['name'].toString().toLowerCase().contains(widget.searchData.toLowerCase());
+        }).toList();
+
         return Padding(
           padding: const EdgeInsets.all(8.0),
-          child: ListView.builder(
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              Map<String, dynamic> thisItem = items[index];
-
-              if (widget.searchData.isEmpty || thisItem['name'].toString().contains(widget.searchData.toLowerCase())) {
-                return myCard(thisItem);
-              }
-
-              return Container();
-            }
-          ),
+          child: filteredItems.isEmpty
+              ? Center(
+                  child: Text(
+                    'No Data Found',
+                    style: TextStyle(
+                      fontFamily: AppTheme.fonts.jost,
+                    ),
+                  ),
+                )
+              : ListView.builder(
+                  itemCount: filteredItems.length,
+                  itemBuilder: (context, index) {
+                    Map<String, dynamic> thisItem = filteredItems[index];
+                    return myCard(thisItem);
+                  },
+                ),
         );
-      }
+      },
     );
   }
 
@@ -69,8 +75,8 @@ class _UserSearchShowState extends State<UserSearchShow> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => RecipesMainPage(recipeId: data['id'])
-                )
+                  builder: (context) => RecipesMainPage(recipeId: data['id']),
+                ),
               );
             },
             title: Text(
@@ -78,7 +84,7 @@ class _UserSearchShowState extends State<UserSearchShow> {
               style: TextStyle(
                 fontFamily: AppTheme.fonts.jost,
                 fontSize: 20,
-                fontWeight: FontWeight.bold
+                fontWeight: FontWeight.bold,
               ),
             ),
             leading: SizedBox(

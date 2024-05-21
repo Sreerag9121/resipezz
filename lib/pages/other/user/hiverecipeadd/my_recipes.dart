@@ -2,14 +2,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:recipizz/pages/other/user/hiverecipeadd/user_resipe_add_main.dart';
-import 'package:recipizz/pages/other/user/hiverecipeadd/userrecipesdetails/user_recipes_details_main.dart';
+import 'package:recipizz/pages/other/user/hiverecipeadd/my_recipe_add.dart';
+import 'package:recipizz/pages/other/user/hiverecipeadd/myrecipes/my_recipe_show.dart';
 import 'package:recipizz/services/functions/hive/hive_recipe_fn.dart';
 import 'package:recipizz/services/functions/hive/recipes_hive.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
-class UserRecipeMain extends StatelessWidget {
-  const UserRecipeMain({super.key});
+class HiveUserRecipeMain extends StatelessWidget {
+  const HiveUserRecipeMain({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +35,8 @@ class UserRecipeMain extends StatelessWidget {
       ),
       body: ValueListenableBuilder(
           valueListenable: Boxes.getData().listenable(),
-          builder: (context, box, _) {
-            var recipes = box.values.toList().cast<RecipeModel>();
+          builder: (context, recipeBox, _) {
+            var recipes = recipeBox.values.toList().cast<RecipeModel>();
             return (recipes.isEmpty)
                 ? Center(
                     child: Text(
@@ -57,14 +57,14 @@ class UserRecipeMain extends StatelessWidget {
                         mainAxisSpacing: 4,
                         childAspectRatio: .8,
                       ),
-                      itemCount: box.length,
+                      itemCount: recipeBox.length,
                       itemBuilder: (context, index) {
                         var data = recipes[index];
                         return InkWell(
                           onTap: () {
                             Navigator.of(context)
-                                .pushReplacement(MaterialPageRoute(
-                              builder: (context) => UserRecipeDetailsMain(
+                                .push(MaterialPageRoute(
+                              builder: (context) => HiveRecipeDetailsMain(
                                 index: index.toString(),
                               ),
                             ));
@@ -80,7 +80,7 @@ class UserRecipeMain extends StatelessWidget {
                                     width: 140,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
-                                      child: Image.file(File(data.imagePath)),
+                                      child: Image.file(File(data.imagePath),fit: BoxFit.fill,),
                                     ),
                                   ),
                                   Padding(
@@ -132,7 +132,7 @@ class UserRecipeMain extends StatelessWidget {
         backgroundColor: AppTheme.colors.shadecolor,
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const UserCreateRecipeMain(),
+            builder: (context) => const HiveAddRecipeMain(),
           ));
         },
         child: Icon(

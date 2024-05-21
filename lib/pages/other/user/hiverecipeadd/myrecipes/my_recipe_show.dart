@@ -1,24 +1,22 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:recipizz/pages/other/admin/recipedetail/recipe_description.dart';
 import 'package:recipizz/pages/other/admin/recipedetail/recipe_direction.dart';
 import 'package:recipizz/pages/other/admin/recipedetail/recipe_ingredients.dart';
-import 'package:recipizz/pages/other/user/hiverecipeadd/user_recipe_show_main.dart';
-import 'package:recipizz/pages/other/user/hiverecipeadd/userrecipesdetails/user_recipes_details.dart';
-import 'package:recipizz/pages/other/user/hiveupdaterecipe.dart/update_main.dart';
+import 'package:recipizz/pages/other/user/hiverecipeadd/my_recipes.dart';
+import 'package:recipizz/pages/other/user/hiverecipeadd/myrecipes/my_recipes_details.dart';
 import 'package:recipizz/services/functions/hive/hive_open_box.dart';
 import 'package:recipizz/services/functions/hive/recipes_hive.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
-class UserRecipeDetailsMain extends StatefulWidget {
+class HiveRecipeDetailsMain extends StatefulWidget {
   final String index;
-  const UserRecipeDetailsMain({super.key, required this.index});
+  const HiveRecipeDetailsMain({super.key, required this.index});
 
   @override
-  State<UserRecipeDetailsMain> createState() => _UserRecipeDetailsMainState();
+  State<HiveRecipeDetailsMain> createState() => _HiveRecipeDetailsMainState();
 }
 
-class _UserRecipeDetailsMainState extends State<UserRecipeDetailsMain> {
+class _HiveRecipeDetailsMainState extends State<HiveRecipeDetailsMain> {
   late RecipeModel recipes;
 
   @override
@@ -45,7 +43,7 @@ class _UserRecipeDetailsMainState extends State<UserRecipeDetailsMain> {
             onPressed: () => Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const UserRecipeMain())),
+                    builder: (context) => const HiveUserRecipeMain())),
             icon: Icon(
               Icons.arrow_back,
               size: 25,
@@ -57,7 +55,7 @@ class _UserRecipeDetailsMainState extends State<UserRecipeDetailsMain> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              UserRecipeDetails(
+              HiveRecipeDetails(
                   recipename: recipes.recipeName,
                   recipeImage: recipes.imagePath,
                   duration: recipes.duration,
@@ -66,13 +64,13 @@ class _UserRecipeDetailsMainState extends State<UserRecipeDetailsMain> {
               AdminRecipeDirection(
                   recipesDirection: recipes.directions,
                   timeRequired: recipes.duration),
+              RecipeDescription(description: recipes.description),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ConstrainedBox(
-                    constraints: const BoxConstraints(
-                      minWidth: 100,
-                      maxWidth: 200                  ),
+                    constraints:
+                        const BoxConstraints(minWidth: 100, maxWidth: 200),
                     child: ElevatedButton.icon(
                       onPressed: () {
                         recipeBox.deleteAt(int.parse(widget.index));
@@ -97,12 +95,7 @@ class _UserRecipeDetailsMainState extends State<UserRecipeDetailsMain> {
                     ),
                     child: ElevatedButton.icon(
                       onPressed: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HiveUpdareRecipeMain(
-                                      index: widget.index,
-                                    )));
+                        Navigator.pop(context);
                       },
                       icon: const Icon(Icons.edit_outlined),
                       label: Text(

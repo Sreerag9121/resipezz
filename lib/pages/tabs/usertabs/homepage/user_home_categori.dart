@@ -82,6 +82,24 @@ class _CategoriesHomePageState extends State<CategoriesHomePage> {
                                 width: 150,
                                 height: 70,
                                 fit: BoxFit.cover,
+                                loadingBuilder:
+                                    (context, child, loadingProgress) =>
+                                        (loadingProgress == null)
+                                            ? child
+                                            : Container(
+                                                width: 150,
+                                                height: 70,
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: AppTheme.colors.appGreyColor)),
+                                                child: Center(
+                                                  child: Icon(
+                                                    Icons.photo,
+                                                    color: AppTheme
+                                                        .colors.appGreyColor,
+                                                  ),
+                                                ),
+                                              ),
                               ),
                               Center(
                                 child: Text(

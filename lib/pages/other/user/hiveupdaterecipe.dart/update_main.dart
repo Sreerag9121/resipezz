@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:recipizz/pages/other/user/hiverecipeadd/userrecipesdetails/user_recipes_details_main.dart';
+import 'package:recipizz/pages/other/user/hiverecipeadd/myrecipes/my_recipe_show.dart';
 import 'package:recipizz/pages/other/user/hiveupdaterecipe.dart/hiveupdateimage.dart';
 import 'package:recipizz/pages/other/user/hiveupdaterecipe.dart/udatedirections.dart';
 import 'package:recipizz/pages/other/user/hiveupdaterecipe.dart/updateingredients.dart';
+import 'package:recipizz/pages/tabs/admintab/createrecipe/add_description.dart';
 import 'package:recipizz/services/functions/hive/hive_open_box.dart';
 import 'package:recipizz/services/functions/hive/hive_recipe_fn.dart';
 import 'package:recipizz/services/functions/hive/recipes_hive.dart';
@@ -25,6 +26,7 @@ class _HiveUpdareRecipeMainState extends State<HiveUpdareRecipeMain> {
   final _recipenamecontoller = TextEditingController();
   final _servingcontoller = TextEditingController();
   final _durationcontoller = TextEditingController();
+  final _descriptioncontoller = TextEditingController();
   List<TextEditingController> _ingreadientsController = [];
   List<TextEditingController> _directionsController = [];
   List<String> ingreadientList = [];
@@ -43,6 +45,7 @@ class _HiveUpdareRecipeMainState extends State<HiveUpdareRecipeMain> {
     oldImagePath = recipes.imagePath;
     editingredientsList = recipes.ingredients;
     editDirectionList = recipes.directions;
+    _descriptioncontoller.text=recipes.description;
   }
 
   @override
@@ -109,6 +112,7 @@ class _HiveUpdareRecipeMainState extends State<HiveUpdareRecipeMain> {
                         _directionsController = directioncontroller;
                       });
                     }),
+                    AddRecipeDescription(controllers: _descriptioncontoller),
                 const SizedBox(
                   height: 30,
                 ),
@@ -121,24 +125,25 @@ class _HiveUpdareRecipeMainState extends State<HiveUpdareRecipeMain> {
                         foregroundColor: AppTheme.colors.appWhiteColor,
                       ),
                       onPressed: () {
-                        userRecipeCrud.UpdateRecipeHive(
-                          widget.index,
-                          _recipenamecontoller,
-                          _servingcontoller,
-                          _durationcontoller,
-                          newImagePath.toString(),
-                          _ingreadientsController
+                        userRecipeCrud.updateRecipeHive(
+                          index:widget.index,
+                          recipeNameController:_recipenamecontoller,
+                          servingController:_servingcontoller,
+                          timeRequiredController:_durationcontoller,
+                          recipeImagePath:newImagePath.toString(),
+                          recipeIngredients:_ingreadientsController
                               .map((controller) => controller.text)
                               .toList(),
-                          _directionsController
+                          recipeDirection:_directionsController
                               .map((controller) => controller.text)
                               .toList(),
+                              descriptionController: _descriptioncontoller
+                              
                         );
-                       
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => UserRecipeDetailsMain(
+                                builder: (context) => HiveRecipeDetailsMain(
                                     index: widget.index)));
                       },
                       child: Text('Create Recipe',

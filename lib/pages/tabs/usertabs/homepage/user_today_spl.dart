@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
-class TodaySpeciaMain extends StatefulWidget {
-  const TodaySpeciaMain({super.key});
+class UserTodaySpecialMain extends StatefulWidget {
+  const UserTodaySpecialMain({super.key});
 
   @override
-  State<TodaySpeciaMain> createState() => _TodaySpeciaMainState();
+  State<UserTodaySpecialMain> createState() => _UserTodaySpecialMainState();
 }
 
-class _TodaySpeciaMainState extends State<TodaySpeciaMain> {
+class _UserTodaySpecialMainState extends State<UserTodaySpecialMain> {
   late DocumentReference _todaySpecialReference;
   late Stream<DocumentSnapshot> _stream;
 
@@ -31,22 +31,22 @@ class _TodaySpeciaMainState extends State<TodaySpeciaMain> {
           if (snapshot.hasData) {
             DocumentSnapshot recipeDocSnapShot = snapshot.data;
             Map recipeData = recipeDocSnapShot.data() as Map;
-            return AdminTodaySpl(todaySpecialId: recipeData['TodaySpecial']);
+            return UserTodaySpl(todaySpecialId: recipeData['TodaySpecial']);
           }
           return const CircularProgressIndicator();
         });
   }
 }
 
-class AdminTodaySpl extends StatefulWidget {
+class UserTodaySpl extends StatefulWidget {
   final String todaySpecialId;
-  const AdminTodaySpl({super.key, required this.todaySpecialId});
+  const UserTodaySpl({super.key, required this.todaySpecialId});
 
   @override
-  State<AdminTodaySpl> createState() => _AdminTodaySplState();
+  State<UserTodaySpl> createState() => _UserTodaySplState();
 }
 
-class _AdminTodaySplState extends State<AdminTodaySpl> {
+class _UserTodaySplState extends State<UserTodaySpl> {
   late DocumentReference _recipeReferance;
   late Stream<DocumentSnapshot> _stream;
   @override
@@ -84,6 +84,7 @@ class _AdminTodaySplState extends State<AdminTodaySpl> {
                               Text(
                                 'Special Recipe',
                                 style: TextStyle(
+                                    overflow: TextOverflow.ellipsis,
                                     fontSize: 20,
                                     fontFamily: AppTheme.fonts.jost),
                               ),
@@ -128,16 +129,20 @@ class _AdminTodaySplState extends State<AdminTodaySpl> {
                                 child: Image.network(
                                   recipeData['recipeImage'],
                                   fit: BoxFit.fill,
-                                  loadingBuilder: (context, child,
-                                          loadingProgress) =>
-                                      (loadingProgress == null)
-                                          ? child
-                                          : Center(
-                                              child: Icon(
-                                              Icons.photo,
-                                              color:
-                                                  AppTheme.colors.appGreyColor,
-                                            )),
+                                  loadingBuilder:
+                                      (context, child, loadingProgress) =>
+                                          (loadingProgress == null)
+                                              ? child
+                                              : Container(
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          color: AppTheme.colors.appGreyColor)),
+                                                  child: Center(
+                                                    child: Icon(Icons.photo,
+                                                        color: AppTheme
+                                                            .colors.appGreyColor),
+                                                  ),
+                                                ),
                                 )),
                           )
                         ],

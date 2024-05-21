@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:recipizz/pages/other/admin/recipedetail/recipe_details.dart';
-import 'package:recipizz/pages/other/admin/recipedetail/recipe_direction.dart';
-import 'package:recipizz/pages/other/admin/recipedetail/recipe_ingredients.dart';
+import 'package:recipizz/pages/other/user/recipesdetailspage/recipes_description.dart';
+import 'package:recipizz/pages/other/user/recipesdetailspage/recipes_details.dart';
+import 'package:recipizz/pages/other/user/recipesdetailspage/recipes_direction.dart';
+import 'package:recipizz/pages/other/user/recipesdetailspage/recipes_ingredients.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
 class RecipesMainPage extends StatefulWidget {
@@ -50,17 +51,18 @@ class _RecipesMainPageState extends State<RecipesMainPage> {
                 return SingleChildScrollView(
                   child: Column(
                     children: [
-                      AdminRecipeDetails(
+                      UserRecipeDet(
                         recipename: recipeData['name'],
                         recipeImage: recipeData['recipeImage'],
                         duration: recipeData['timeRequired'],
                         serving: recipeData['serving'],
                       ),
-                      AdminRecipesIngredients(
+                      UserRecipesIngredients(
                           ingredientsItems: recipeData['ingredient']),
-                      AdminRecipeDirection(
+                      UserRecipeDirection(
                           recipesDirection: recipeData['directions'],
                           timeRequired: recipeData['timeRequired']),
+                      UserRecipeDescription(description: recipeData['description'])
                     ],
                   ),
                 );

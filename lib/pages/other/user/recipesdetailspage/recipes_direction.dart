@@ -1,26 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
-class RecipesIngredients extends StatefulWidget {
-  const RecipesIngredients({super.key});
+class UserRecipeDirection extends StatefulWidget {
+  final List<dynamic> recipesDirection;
+  final String? timeRequired;
+  const UserRecipeDirection(
+      {super.key, required this.recipesDirection, required this.timeRequired});
 
   @override
-  State<RecipesIngredients> createState() => _RecipesIngredientsState();
+  State<UserRecipeDirection> createState() => _UserRecipeDirectionState();
 }
 
-class _RecipesIngredientsState extends State<RecipesIngredients> {
-  final List<String> ingredientsItems = [
-    '1 cub chicken breast, cubed',
-    'salt,to taste',
-    'pepper,to taste',
-    '1/2cup teriyaki sauce,divided',
-    'chow mein noodle(180 g), hong kong style pan fried noodles, par cooked according to package instructions',
-    '3/4 cup onion,sliced',
-    '1/2 cup carrot,julienned',
-    '1 cup broccoli floret',
-    'sesame seeds,for garnish'
-  ];
-
+class _UserRecipeDirectionState extends State<UserRecipeDirection> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -33,11 +24,11 @@ class _RecipesIngredientsState extends State<RecipesIngredients> {
           child: Row(
             children: [
                Icon(
-                Icons.list,
-                color:AppTheme.colors.appWhiteColor ,
+                Icons.directions_outlined,
+                color: AppTheme.colors.appWhiteColor,
               ),
               Text(
-                ' Ingredients Required',
+                ' Direction to Prepare',
                 style: TextStyle(
                     fontFamily: AppTheme.fonts.jost,
                     fontSize: 18,
@@ -47,7 +38,7 @@ class _RecipesIngredientsState extends State<RecipesIngredients> {
                 width: 110,
               ),
               Text(
-                'items ${ingredientsItems.length}',
+                'Steps-${widget.recipesDirection.length}',
                 style: TextStyle(
                     fontFamily: AppTheme.fonts.jost, color: AppTheme.colors.appWhiteColor),
               )
@@ -59,11 +50,11 @@ class _RecipesIngredientsState extends State<RecipesIngredients> {
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
               return ListTile(
+                leading: Text('${index + 1}'),
                 title: Text(
-                  ingredientsItems[index],
+                  widget.recipesDirection[index],
                   style: TextStyle(fontFamily: AppTheme.fonts.jost),
                 ),
-                leading: IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
               );
             },
             separatorBuilder: (context, index) {
@@ -76,7 +67,7 @@ class _RecipesIngredientsState extends State<RecipesIngredients> {
                 ),
               );
             },
-            itemCount: ingredientsItems.length),
+            itemCount: widget.recipesDirection.length),
       ],
     );
   }

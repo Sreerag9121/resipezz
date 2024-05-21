@@ -73,7 +73,6 @@ class _AdminEasyAndQuickState extends State<AdminEasyAndQuick> {
                             'time': e['timeRequired'],
                           })
                       .toList();
-
                   return GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
@@ -108,6 +107,14 @@ class _AdminEasyAndQuickState extends State<AdminEasyAndQuick> {
                                     child: Image.network(
                                       thisItem['image'],
                                       fit: BoxFit.cover,
+                                      loadingBuilder: (context, child,loadingProgress) =>
+                                    (loadingProgress == null)
+                                        ? child
+                                        : Center(
+                                            child: Icon(
+                                            Icons.photo,
+                                            color: AppTheme.colors.appGreyColor,
+                                          )),
                                     ),
                                   ),
                                 ),

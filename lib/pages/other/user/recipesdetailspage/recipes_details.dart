@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
-class AdminRecipeDetails extends StatelessWidget {
+class UserRecipeDet extends StatelessWidget {
   final String? recipename;
   final String? recipeImage;
   final String? duration;
   final String? serving;
-  const AdminRecipeDetails(
+  const UserRecipeDet(
       {super.key,
       required this.recipename,
       required this.recipeImage,
@@ -27,11 +27,9 @@ class AdminRecipeDetails extends StatelessWidget {
             loadingBuilder: (context, child, loadingProgress) =>
                 (loadingProgress == null)
                     ? child
-                    : Center(
-                        child: Icon(
-                        Icons.photo,
-                        color: AppTheme.colors.appGreyColor,
-                      )),
+                    : Center(child: Icon(Icons.photo,
+                      color: AppTheme.colors.appGreyColor,
+                    )),
           ),
         ),
         Padding(

@@ -16,7 +16,7 @@ class _UserNavBarState extends State<UserNavBar> {
   int index=0;
   final screens=[
     const UserHomePageMain(),
-    const FavroitePageMain(),
+    const FavoritetPageMain(),
     const ShopingList(),
     const MenuPage(),
   ];

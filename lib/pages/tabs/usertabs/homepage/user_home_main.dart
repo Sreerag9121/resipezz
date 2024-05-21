@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipizz/pages/tabs/usertabs/homepage/user_home_categori.dart';
 import 'package:recipizz/pages/tabs/usertabs/homepage/user_home_easy_quick.dart';
-import 'package:recipizz/pages/tabs/usertabs/homepage/user-home_todayspecial.dart';
+import 'package:recipizz/pages/tabs/usertabs/homepage/user_today_spl.dart';
 import 'package:recipizz/pages/tabs/usertabs/homepage/user_search_home.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
@@ -13,8 +13,8 @@ class UserHomePageMain extends StatefulWidget {
 }
 
 class _UserHomePageMainState extends State<UserHomePageMain> {
- final TextEditingController _searchController=TextEditingController();
-String recipeName='';
+  final TextEditingController _searchController = TextEditingController();
+  String recipeName = '';
   bool searchvisibility = false;
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ String recipeName='';
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 170,
+              height: 153,
               padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
               child: Column(
                 children: [
@@ -42,43 +42,37 @@ String recipeName='';
                   const SizedBox(
                     height: 15,
                   ),
-
                   //search bar
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: TextFormField(
-                          controller: _searchController,
-                          onTap: () {
-                            setState(() {
-                              searchvisibility = true;
-                            });
-                          },
-                          onChanged: (value){
-                            setState(() {
-                              recipeName=value;
-                            });  
-                          },
-                          decoration: InputDecoration(
-                              hintText: 'search...',
-                              contentPadding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              prefixIcon: const Icon(Icons.search),
-                              suffixIcon: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      searchvisibility = false;
-                                      _searchController.clear();
-                                      FocusScope.of(context).unfocus();
-                                    });
-                                  },
-                                  icon: const Icon(Icons.clear)),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(50))),
-                        ),
-                      ),
-                    ],
+                  TextFormField(
+                    controller: _searchController,
+                    onTap: () {
+                      setState(() {
+                        searchvisibility = true;
+                      });
+                    },
+                    onChanged: (value) {
+                      setState(() {
+                        recipeName = value;
+                      });
+                    },
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: AppTheme.colors.background,
+                        hintText: 'search...',
+                        contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 20),
+                        prefixIcon: const Icon(Icons.search),
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                searchvisibility = false;
+                                _searchController.clear();
+                                FocusScope.of(context).unfocus();
+                              });
+                            },
+                            icon: const Icon(Icons.clear)),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(50))),
                   )
                 ],
               ),
@@ -97,10 +91,11 @@ String recipeName='';
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const UserTodaySpecialCard(),
-                          Padding(
+                          const UserTodaySpecialMain(),
+                          Container(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 8),
+                            alignment: Alignment.bottomLeft,
                             child: Text(
                               'Categories',
                               style: TextStyle(
@@ -120,9 +115,9 @@ String recipeName='';
                         child: Container(
                           color: AppTheme.colors.appWhiteColor,
                           child: SizedBox(
-                            width: double.infinity,
-                            height: 600,
-                            child: UserSearchShow(searchData:recipeName )),
+                              width: double.infinity,
+                              height: 600,
+                              child: UserSearchShow(searchData: recipeName)),
                         ),
                       )
                     ]),

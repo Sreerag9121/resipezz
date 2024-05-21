@@ -103,6 +103,14 @@ class _RecipesMainState extends State<RecipesMain> {
                                   child: Image.network(
                                     thisItem['image'],
                                     fit: BoxFit.cover,
+                                    loadingBuilder: (context, child,loadingProgress) =>
+                                    (loadingProgress == null)
+                                        ? child
+                                        : Center(
+                                            child: Icon(
+                                            Icons.photo,
+                                            color: AppTheme.colors.appGreyColor,
+                                          )),
                                   ),
                                 ),
                               ),
@@ -155,6 +163,8 @@ class _RecipesMainState extends State<RecipesMain> {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: AppTheme.colors.shadecolor,
+        foregroundColor: AppTheme.colors.appWhiteColor,
         onPressed: () {
           Navigator.push(
               context,
