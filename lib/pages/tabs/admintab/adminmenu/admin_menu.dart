@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:recipizz/pages/other/user/aboutus/about_us_main.dart';
 import 'package:recipizz/pages/tabs/admintab/adminmenu/admin_signout.dart';
 import 'package:recipizz/pages/tabs/admintab/adminmenu/adminprofile.dart';
 import 'package:recipizz/utils/app_theme.dart';
@@ -13,16 +12,6 @@ class AdminMenu extends StatefulWidget {
 
 class _AdminMenuState extends State<AdminMenu> {
 final List<Menuitems>menuitems=[
-  Menuitems(
-    title: 'My Profile',
-     icon:Icons.person_outline,
-     mnuitmnav: const AdminProfile() ,
-    ),
-     Menuitems(
-    title: 'About',
-     icon:Icons.info_outline_rounded,
-     mnuitmnav: const AboutUsMain(),
-    ),
      Menuitems(
     title: 'Sign Out',
      icon:Icons.logout_outlined,

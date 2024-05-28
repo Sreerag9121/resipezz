@@ -14,7 +14,6 @@ class CategoriesBody extends StatelessWidget {
   Widget build(BuildContext context) {
        final mediaQuery = MediaQuery.of(context);
        final screenWidth = mediaQuery.size.width;
-       final screenHeight = mediaQuery.size.height;
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: items.length,
@@ -41,22 +40,19 @@ class CategoriesBody extends StatelessWidget {
                   children: [
                     SizedBox(
                       width: screenWidth*0.4,
-                      height: screenHeight*1,
-                      child: ClipRRect(
-                        child: Image.network(
-                          thisItem['image'],
-                          fit: BoxFit.cover,
-                          loadingBuilder:
-                              (context, child, loadingProgress) =>
-                                  (loadingProgress == null)
-                                      ? child
-                                      : Center(
-                                        child: Icon(
-                                          Icons.photo,
-                                          color: AppTheme.colors.appGreyColor,
-                                        ),
+                      child: Image.network(
+                        thisItem['image'],
+                        fit: BoxFit.cover,
+                        loadingBuilder:
+                            (context, child, loadingProgress) =>
+                                (loadingProgress == null)
+                                    ? child
+                                    : Center(
+                                      child: Icon(
+                                        Icons.photo,
+                                        color: AppTheme.colors.appGreyColor,
                                       ),
-                        ),
+                                    ),
                       ),
                     ),
                     Positioned(

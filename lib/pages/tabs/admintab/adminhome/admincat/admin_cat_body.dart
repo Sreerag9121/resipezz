@@ -16,7 +16,6 @@ class AdminCatBody extends StatelessWidget {
   Widget build(BuildContext context) {
        final mediaQuery = MediaQuery.of(context);
        final screenWidth = mediaQuery.size.width;
-       final screenHeight = mediaQuery.size.height;
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: items.length,
@@ -26,7 +25,6 @@ class AdminCatBody extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: SizedBox(
-            // height: 200,
             child: InkWell(
               onTap: () {
                 Navigator.push(
@@ -36,43 +34,44 @@ class AdminCatBody extends StatelessWidget {
                               categoryName: thisItem['name'],
                             )));
               },
-              child: Card(
-                color: AppTheme.colors.shadecolor,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Stack(
-                   alignment: Alignment.bottomCenter,
-                    children: [
-                      SizedBox(
-                        width:screenWidth*0.4,
-                        // height: 70,
-                        child: Image.network(
-                          thisItem['image'],
-                          fit: BoxFit.cover,
-                          loadingBuilder: (context, child,loadingProgress) =>
-                              (loadingProgress == null)
-                                  ? child
-                                  : Center(
+              child:Card(
+              color: AppTheme.colors.shadecolor,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    SizedBox(
+                      width: screenWidth*0.4,
+                      child: Image.network(
+                        thisItem['image'],
+                        fit: BoxFit.cover,
+                        loadingBuilder:
+                            (context, child, loadingProgress) =>
+                                (loadingProgress == null)
+                                    ? child
+                                    : Center(
                                       child: Icon(
-                                      Icons.photo,
-                                      color: AppTheme.colors.appGreyColor,
-                                    )),
+                                        Icons.photo,
+                                        color: AppTheme.colors.appGreyColor,
+                                      ),
+                                    ),
+                      ),
+                    ),
+                    Positioned(
+                      child: Text(
+                        thisItem['name'],
+                        style: TextStyle(
+                          color: AppTheme.colors.appWhiteColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Center(
-                        child: Text(
-                          thisItem['name'],
-                          style: TextStyle(
-                            color: AppTheme.colors.appWhiteColor,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
+            ),
             ),
           ),
         );

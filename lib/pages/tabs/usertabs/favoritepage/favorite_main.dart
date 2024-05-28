@@ -44,7 +44,7 @@ class FavoritetPageMain extends StatelessWidget {
                           crossAxisCount: 2,
                           crossAxisSpacing: 4,
                           mainAxisSpacing: 4,
-                          childAspectRatio: .74,
+                          childAspectRatio: 0.8,
                         ),
                         itemBuilder: ((context, index) {
                           return Card(
@@ -91,52 +91,56 @@ class FavoritetPageMain extends StatelessWidget {
                                             Icons.favorite,
                                             color: AppTheme.colors.appRedColor,
                                           ))),
-                                  SizedBox(
-                                    height: 110,
-                                    width: 140,
+                                  Expanded(
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
                                       child: Image.network(
                                         recipes[index].imagePath,
                                         fit: BoxFit.cover,
+                                        width: double.infinity,
+                                        height: double.infinity,
+                                        loadingBuilder:(context, child, loadingProgress) =>
+                                        (loadingProgress == null)
+                                            ? child
+                                            : SizedBox(
+                                              width: double.infinity,
+                                              height: double.infinity,
+                                              child: Center(
+                                                  child: Icon(
+                                                    Icons.photo,
+                                                    color: AppTheme.colors.appGreyColor,
+                                                  ),
+                                                ),
+                                            ),
                                       ),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: SizedBox(
-                                      width: 120,
-                                      height: 40,
-                                      child: Text(
-                                        recipes[index].recipeName,
-                                        maxLines: 2,
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    recipes[index].recipeName,
+                                    maxLines: 2,
+                                    style: TextStyle(
+                                        overflow: TextOverflow.ellipsis,
+                                        fontFamily: AppTheme.fonts.jost,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Row(
+                                    children: [
+                                      const FaIcon(
+                                        FontAwesomeIcons.clock,
+                                        size: 19,
+                                      ),
+                                      const SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        recipes[index].duration,
                                         style: TextStyle(
-                                            overflow: TextOverflow.ellipsis,
-                                            fontFamily: AppTheme.fonts.jost,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 25),
-                                    child: Row(
-                                      children: [
-                                        const FaIcon(
-                                          FontAwesomeIcons.clock,
-                                          size: 19,
-                                        ),
-                                        const SizedBox(
-                                          width: 8,
-                                        ),
-                                        Text(
-                                          recipes[index].duration,
-                                          style: TextStyle(
-                                              fontFamily: AppTheme.fonts.jost),
-                                        )
-                                      ],
-                                    ),
+                                            fontFamily: AppTheme.fonts.jost),
+                                      )
+                                    ],
                                   )
                                 ],
                               ),

@@ -6,6 +6,9 @@ class AboutUsMain extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final screenWidth = mediaQuery.size.width;
+    final screenHeight = mediaQuery.size.height;
     return Scaffold(
       backgroundColor: AppTheme.colors.shadecolor,
       appBar: AppBar(
@@ -29,17 +32,17 @@ class AboutUsMain extends StatelessWidget {
               style: TextStyle(
                   fontFamily: AppTheme.fonts.jost,
                   fontWeight: FontWeight.w600,
-                  fontSize: 35,
+                  fontSize: screenWidth*0.035,
                   color: AppTheme.colors.appWhiteColor),
             ),
-            const SizedBox(
-              height: 30,
+             SizedBox(
+              height: screenHeight*0.030,
             ),
             Card(
               color:AppTheme.colors.appWhiteColor,
               child: Container(
-                width: 350,
-                height: 600,
+                width: screenWidth*.9,
+                height:screenHeight*.75,
                 padding: const EdgeInsets.symmetric(vertical: 30),
                 child: Column(
                   children: [
@@ -54,7 +57,7 @@ class AboutUsMain extends StatelessWidget {
                       child: Text('ReciPizz',
                       style: TextStyle(
                         fontFamily: AppTheme.fonts.mysteryQuest,
-                        fontSize: 32,
+                        fontSize: screenHeight*0.032,
                         fontWeight: FontWeight.w800
                       ),
                       ),
