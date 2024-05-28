@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:recipizz/pages/other/admin/recipedetail/recipe_detail_main.dart';
 import 'package:recipizz/pages/tabs/admintab/createrecipe/add_recipe_main.dart';
@@ -73,9 +74,9 @@ class _RecipesMainState extends State<RecipesMain> {
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 8,
-                  mainAxisSpacing: 8,
-                  childAspectRatio: .8,
+                  crossAxisSpacing: 4,
+                  mainAxisSpacing: 4,
+                  childAspectRatio: 0.8,
                 ),
                 itemCount: items.length,
                 itemBuilder: (context, index) {
@@ -87,69 +88,58 @@ class _RecipesMainState extends State<RecipesMain> {
                                 recipeId: thisItem['id'],
                               )));
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Card(
-                        color: AppTheme.colors.appWhiteColor,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 15),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 110,
-                                width: 140,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Image.network(
-                                    thisItem['image'],
-                                    fit: BoxFit.cover,
-                                    loadingBuilder: (context, child,loadingProgress) =>
-                                    (loadingProgress == null)
-                                        ? child
-                                        : Center(
-                                            child: Icon(
-                                            Icons.photo,
-                                            color: AppTheme.colors.appGreyColor,
-                                          )),
-                                  ),
+                    child: Card(
+                      color: AppTheme.colors.appWhiteColor,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Image.network(
+                                  thisItem['image'],
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  loadingBuilder: (context, child,loadingProgress) =>
+                                  (loadingProgress == null)
+                                      ? child
+                                      : Center(
+                                          child: Icon(
+                                          Icons.photo,
+                                          color: AppTheme.colors.appGreyColor,
+                                        )),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
-                                  width: 120,
-                                  height: 40,
-                                  child: Text(
-                                    thisItem['name'],
-                                    style: TextStyle(
-                                        fontFamily: AppTheme.fonts.jost,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              thisItem['name'],
+                              maxLines: 2,
+                              style: TextStyle(
+                                  overflow: TextOverflow.ellipsis,
+                                  fontFamily: AppTheme.fonts.jost,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 4),
+                            Row(
+                              children: [
+                                const FaIcon(
+                                  FontAwesomeIcons.clock,
+                                  size: 16,
                                 ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 25),
-                                child: Row(
-                                  children: [
-                                    const FaIcon(
-                                      FontAwesomeIcons.clock,
-                                      size: 19,
-                                    ),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    Text(
-                                      '${thisItem['time']}',
-                                      style: TextStyle(
-                                          fontFamily: AppTheme.fonts.jost),
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
+                                const SizedBox(width: 8,),
+                                Text(
+                                  '${thisItem['time']} hr',
+                                  style: TextStyle(
+                                      fontFamily: AppTheme.fonts.jost),
+                                )
+                              ],
+                            )
+                          ],
                         ),
                       ),
                     ),

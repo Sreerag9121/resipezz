@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:recipizz/pages/tabs/usertabs/homepage/user_home_categori.dart';
+import 'package:recipizz/pages/tabs/usertabs/homepage/usercategori/user_home_categori.dart';
 import 'package:recipizz/pages/tabs/usertabs/homepage/user_home_easy_quick.dart';
-import 'package:recipizz/pages/tabs/usertabs/homepage/user_today_spl.dart';
+import 'package:recipizz/pages/tabs/usertabs/homepage/usertodayspl/user_today_spl.dart';
 import 'package:recipizz/pages/tabs/usertabs/homepage/user_search_home.dart';
 import 'package:recipizz/utils/app_theme.dart';
 

@@ -53,7 +53,10 @@ class _AdminRecipesIngredientsState extends State<AdminRecipesIngredients> {
                   widget.ingredientsItems[index],
                   style: TextStyle(fontFamily: AppTheme.fonts.jost),
                 ),
-                leading: IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
+                leading: Text('${index+1}',
+                style: TextStyle(
+                  fontFamily: AppTheme.fonts.jost
+                ),),
               );
             },
             separatorBuilder: (context, index) {

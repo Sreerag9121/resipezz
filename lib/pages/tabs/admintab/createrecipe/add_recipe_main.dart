@@ -3,6 +3,7 @@ import 'package:recipizz/pages/tabs/admintab/createrecipe/add_description.dart';
 import 'package:recipizz/pages/tabs/admintab/createrecipe/add_directions.dart';
 import 'package:recipizz/pages/tabs/admintab/createrecipe/add_ingredients.dart';
 import 'package:recipizz/pages/tabs/admintab/createrecipe/add_recipe_img.dart';
+import 'package:recipizz/pages/tabs/admintab/createrecipe/add_time.dart';
 import 'package:recipizz/pages/tabs/admintab/createrecipe/select_categories.dart';
 import 'package:recipizz/services/functions/adminfunctions/recipes_crud_functions.dart';
 import 'package:recipizz/utils/app_theme.dart';
@@ -21,7 +22,7 @@ class _CreateRecipeMainState extends State<CreateRecipeMain> {
   final _formKey = GlobalKey<FormState>();
   final _recipenamecontoller = TextEditingController();
   final _servingcontoller = TextEditingController();
-  final _durationcontoller = TextEditingController();
+   String _duration = '';
   final _descriptionController=TextEditingController();
   String category = '';
   List<TextEditingController> ingreadientsController = [];
@@ -78,10 +79,9 @@ class _CreateRecipeMainState extends State<CreateRecipeMain> {
                     controllers: _servingcontoller,
                     hintText: 'How many people can serve',
                     labelText: 'Serving *'),
-                MyTextFieldWoutBrd(
-                    controllers: _durationcontoller,
-                    hintText: 'Time required',
-                    labelText: 'Duration *'),
+                    AddReqTime(onSetTimeValue:(time){
+                      _duration=time;
+                    } ,),
                 AddIngredients(onIngredientList: (ingredientController) {
                   setState(() {
                     ingreadientsController = ingredientController;
@@ -143,7 +143,7 @@ class _CreateRecipeMainState extends State<CreateRecipeMain> {
                                 await recipesCurdOp.addRecipeMethod(
                                  recipeNameController:  _recipenamecontoller,
                                   servingController:_servingcontoller,
-                                  timeRequiredController:_durationcontoller,
+                                  timeRequiredController:_duration,
                                   descriptionController: _descriptionController,
                                   recipeImagePath:recipeImagePath,
                                   recipeIngredients:ingreadientsController,

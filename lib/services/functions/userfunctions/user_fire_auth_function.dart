@@ -1,7 +1,10 @@
 // ignore_for_file: unnecessary_null_comparison
 
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:recipizz/services/functions/userfunctions/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,19 +19,24 @@ class AuthServices {
             email: user.email.toString(), password: user.password.toString());
 
     if (userData != null) {
-      FirebaseFirestore.instance
-          .collection('users')
-          .doc(userData.user!.uid)
-          .set({
-        'uid': userData.user!.uid,
-        'eamil': userData.user!.email,
-        'name': user.name,
-        'createAt': user.createdAt,
-        'status': user.status
-      });
+      AddUserData(user, userData.user!.uid,);
       return userData;
     }
     return null;
+  }
+  Future<void>AddUserData(UserModel user,String uid)async{
+      String uniqueTime = DateTime.now().microsecondsSinceEpoch.toString();
+    Reference userImageRef = FirebaseStorage.instance.ref();
+    Reference userImage = userImageRef.child('user_por_pick');
+    Reference referenceImageUpload = userImage.child(uniqueTime);
+    await referenceImageUpload.putFile(File(user.userImage!));
+    String imageUrl = await referenceImageUpload.getDownloadURL();
+    _usercollection.doc(uid).set({
+      'uid':uid,
+      'email':user.email,
+      'userName':user.userName,
+      'userImage':imageUrl,
+    });
   }
 
 //login

@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:recipizz/auth/userauth/loginpage/login_page.dart';
 import 'package:recipizz/auth/userauth/signuppage/show_dialog.dart';
+import 'package:recipizz/auth/userauth/signuppage/user_image.dart';
 import 'package:recipizz/pages/tabs/usertabs/navigationbar/navigationbar.dart';
 import 'package:recipizz/services/functions/userfunctions/user_fire_auth_function.dart';
 import 'package:recipizz/services/functions/userfunctions/user_model.dart';
@@ -22,6 +23,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final _passwordcontroller = TextEditingController();
   final _repasswordcontroller = TextEditingController();
   final _emailcontroller = TextEditingController();
+  String? userImage;
   final _formKey = GlobalKey<FormState>();
 
   UserModel _userModel = UserModel();
@@ -29,9 +31,10 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void _register() async {
     _userModel = UserModel(
+      userImage: userImage,
+      userName: _usernamecontoller.text,
       email: _emailcontroller.text,
       password: _passwordcontroller.text,
-      status: 1,
       createdAt: DateTime.now(),
     );
     try {
@@ -40,6 +43,10 @@ class _SignUpPageState extends State<SignUpPage> {
       if (userdata != null) {
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => const UserNavBar()));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          duration: Duration(seconds: 3),
+          content: Text('Account Successfully Created'),
+        ));
       }
     } on FirebaseAuthException catch (e) {
       List error = e.toString().split(',');
@@ -82,10 +89,17 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ),
                     const SizedBox(
-                      height: 50,
+                      height: 10,
                     ),
                     //username
-
+                   AddUserImage(
+                    onImageSelectedResipe:(image){
+                      setState(() {
+                        userImage=image;
+                      });
+                    } 
+                    ),
+                    const SizedBox(height: 10,),
                     MyTextField(
                       controllers: _usernamecontoller,
                       hintText: 'Enter Username',

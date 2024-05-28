@@ -5,7 +5,7 @@ class MyTextField extends StatefulWidget {
   final TextEditingController controllers;
   final String hintText;
   final bool obscureText;
-  final String labelText;
+  final String? labelText;
   final IconData? prefixIconData;
   final IconData? suffixIconData;
   final TextInputType keyboardType; 
@@ -15,7 +15,7 @@ class MyTextField extends StatefulWidget {
     required this.controllers,
     required this.hintText,
     this.obscureText=false,
-    required this.labelText,
+    this.labelText,
     required this.keyboardType, 
     this.prefixIconData,
     this.suffixIconData,
@@ -39,21 +39,21 @@ class MyTextFieldState extends State<MyTextField> {
           borderRadius: BorderRadius.circular(15),
         ),
         border:  const OutlineInputBorder(),
-        labelText: widget.labelText,
+        labelText: (widget.labelText!=null)?widget.labelText:widget.hintText,
         labelStyle: TextStyle(color:AppTheme.colors.appBlackColor),
         hintText: widget.hintText,
         hintStyle: const TextStyle(
           color: Colors.black12,
         ),
         prefixIcon: widget.prefixIconData != null ? Icon(widget.prefixIconData) : null,
-        suffixIcon: widget.suffixIconData != null
+        suffixIcon: widget.obscureText
             ? IconButton(
                 onPressed: () {
                   setState(() {
                     _passwordVisibility = !_passwordVisibility;
                   });
                 },
-                icon: Icon(widget.suffixIconData),
+                icon: (_passwordVisibility)? const Icon(Icons.visibility_off):const Icon(Icons.visibility),
               )
             : null,
       ),

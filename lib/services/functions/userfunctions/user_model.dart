@@ -3,32 +3,32 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel{
   String?email;
-  String?name;
+  String?userName;
   String?password;
   DateTime?createdAt;
-  int?status;
   String?uid;
+  String?userImage;
 
-  UserModel({this.uid,this.email,this.name,this.password,this.createdAt,this.status});
+  UserModel({this.uid,this.email,this.userName,this.password,this.createdAt,this.userImage});
 
   factory UserModel.fromJason(DocumentSnapshot data){
     return UserModel(
       email: data['email'],
       uid:data['uid'],
-      name: data['name'],
-      status: data['status'],
-      createdAt: data['createdAt']
+      userName: data['name'],
+      createdAt: data['createdAt'],
+      userImage: data['userImage']
     );
   }
 
   Map<String,dynamic>toJason(){
     return {
       'uid':uid,
-      'name':name,
+      'name':userName,
       'email':email,
       'password':password,
-      'status':status,
-      'createdAt':createdAt
+      'createdAt':createdAt,
+      'userImage':userImage
     };
   }
 }

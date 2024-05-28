@@ -78,7 +78,7 @@ class _UpdateCategoriesState extends State<UpdateCategories> {
                           UpdateCatImage(
                             onImageSelected: (image) {
                               setState(() {
-                                imagePath = image ?? '';
+                                imagePath = image;
                               });
                             },
                             oldImages: _oldimageUrl,

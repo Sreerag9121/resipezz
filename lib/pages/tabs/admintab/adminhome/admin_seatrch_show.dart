@@ -16,46 +16,53 @@ class _AdminSearchShowState extends State<AdminSearchShow> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: FirebaseFirestore.instance.collection('recipes').snapshots(),
-      builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
+        stream: FirebaseFirestore.instance.collection('recipes').snapshots(),
+        builder: (context,
+            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          if (!snapshot.hasData || snapshot.data == null) {
+            return const Center(
+              child: Text('No data available'),
+            );
+          }
+
+          QuerySnapshot<Map<String, dynamic>> querySnapshot = snapshot.data!;
+          List<QueryDocumentSnapshot<Map<String, dynamic>>> documents =
+              querySnapshot.docs;
+          List<Map<String, dynamic>> items = documents
+              .map((e) => {
+                    'id': e.id,
+                    'name': e['name'],
+                    'image': e['recipeImage'],
+                    'time': e['timeRequired'],
+                  })
+              .toList();
+
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListView.builder(
+                itemCount: items.length,
+                itemBuilder: (context, index) {
+                  Map<String, dynamic> thisItem = items[index];
+            
+                  if (widget.searchData.isEmpty ||
+                      thisItem['name'].toString().toLowerCase()
+                      .contains(widget.searchData.toLowerCase()) ||
+                      (double.tryParse(widget.searchData) != null &&
+                          double.tryParse(thisItem['time']) != null &&
+                          double.parse(thisItem['time']) <=
+                              double.parse(widget.searchData))) {
+                    return myCard(thisItem);
+                  }
+                  return Container();
+                }),
           );
-        }
-        
-        if (!snapshot.hasData || snapshot.data == null) {
-          return const Center(
-            child: Text('No data available'),
-          );
-        }
-
-        QuerySnapshot<Map<String, dynamic>> querySnapshot = snapshot.data!;
-        List<QueryDocumentSnapshot<Map<String, dynamic>>> documents = querySnapshot.docs;
-        List<Map<String, dynamic>> items = documents.map((e) => {
-          'id': e.id,
-          'name': e['name'],
-          'image': e['recipeImage'],
-          'time': e['timeRequired'],
-        }).toList();
-
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListView.builder(
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              Map<String, dynamic> thisItem = items[index];
-
-              if (widget.searchData.isEmpty || thisItem['name'].toString().contains(widget.searchData.toLowerCase())) {
-                return myCard(thisItem);
-              }
-
-              return Container();
-            }
-          ),
-        );
-      }
-    );
+        });
   }
 
   SizedBox myCard(Map<String, dynamic> data) {
@@ -67,19 +74,17 @@ class _AdminSearchShowState extends State<AdminSearchShow> {
           child: ListTile(
             onTap: () {
               Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AdminRecipesMainPage(recipeId: data['id'])
-                )
-              );
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          AdminRecipesMainPage(recipeId: data['id'])));
             },
             title: Text(
               data['name'],
               style: TextStyle(
-                fontFamily: AppTheme.fonts.jost,
-                fontSize: 20,
-                fontWeight: FontWeight.bold
-              ),
+                  fontFamily: AppTheme.fonts.jost,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
             ),
             leading: SizedBox(
               height: 50,

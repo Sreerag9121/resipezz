@@ -1,5 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:recipizz/pages/other/user/userpassword/update_pass_body.dart';
 import 'package:recipizz/utils/app_theme.dart';
+import 'package:recipizz/widgets/my_text_field.dart';
+import 'package:recipizz/widgets/text_field_without_border.dart';
 
 class UserPassMain extends StatefulWidget {
   const UserPassMain({super.key});
@@ -9,120 +14,63 @@ class UserPassMain extends StatefulWidget {
 }
 
 class _UserPassMainState extends State<UserPassMain> {
+  final user = FirebaseAuth.instance.currentUser;
+  late DocumentReference _userReference;
+  @override
+  void initState() {
+    _userReference =
+        FirebaseFirestore.instance.collection('users').doc(user!.uid);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTheme.colors.shadecolor,
       appBar: AppBar(
         backgroundColor: AppTheme.colors.shadecolor,
+        foregroundColor: AppTheme.colors.appWhiteColor,
+        title: Text('Update Password',
+            style: TextStyle(
+                fontFamily: AppTheme.fonts.jost,
+                fontWeight: FontWeight.w600,
+                fontSize: 24)),
+        centerTitle: true,
         leading: IconButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon:  Icon(
+          icon: const Icon(
             Icons.arrow_back,
             size: 25,
-            color: AppTheme.colors.appWhiteColor,
           ),
         ),
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
-                children: [
-                  Text(
-                    'Username & Password ',
-                    style: TextStyle(
-                        fontFamily: AppTheme.fonts.jost,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 35,
-                        color: AppTheme.colors.appWhiteColor),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const CircleAvatar(
-                    radius: 100,
-                    backgroundImage:
-                        AssetImage('assets/images/user/profile image.jpeg'),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                    child: Text(
-                      'sophia.johnson@gmail.com',
-                      style: TextStyle(
-                          fontFamily: AppTheme.fonts.jost,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          color: AppTheme.colors.appWhiteColor),
+      body: StreamBuilder(
+          stream: _userReference.snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+            if (snapshot.hasData) {
+              DocumentSnapshot userDoc = snapshot.data!;
+              Map<String, dynamic> userData =
+                  userDoc.data() as Map<String, dynamic>;
+              return SafeArea(
+                child: SingleChildScrollView(
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      //body of Update Password
+                      child: UpdatePassWordBody(
+                        userData: userData, 
+),
                     ),
                   ),
-                  buildTextfield('UserName', 'SJ@1998'),
-                  buildTextfield('Password', '*******'),
-                  buildTextfield('New Password', ''),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        style: OutlinedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(horizontal: 40),
-                        ),
-                        child:Text(
-                          'CANCEL',
-                          style: TextStyle(
-                              fontSize: 15,
-                              letterSpacing: 2,
-                              color: AppTheme.colors.appBlackColor),
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppTheme.colors.maincolor,
-                          padding: const EdgeInsets.symmetric(horizontal: 50),
-                        ),
-                        child:Text(
-                          'SAVE',
-                          style: TextStyle(
-                              fontSize: 15,
-                              letterSpacing: 2,
-                              color: AppTheme.colors.appBlackColor),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget buildTextfield(String labelText, String placeholder) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 30),
-      child: TextFormField(
-        decoration: InputDecoration(
-            contentPadding: const EdgeInsets.only(bottom: 5),
-            labelText: labelText,
-            floatingLabelBehavior: FloatingLabelBehavior.always,
-            hintText: placeholder,
-            hintStyle: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: AppTheme.colors.appBlackColor)),
-      ),
+                ),
+              );
+            }
+            return const Scaffold(
+                body: Center(child: CircularProgressIndicator()));
+          }),
     );
   }
 }

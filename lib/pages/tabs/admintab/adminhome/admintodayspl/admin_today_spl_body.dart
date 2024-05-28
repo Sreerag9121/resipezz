@@ -3,52 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
-class TodaySpeciaMain extends StatefulWidget {
-  const TodaySpeciaMain({super.key});
-
-  @override
-  State<TodaySpeciaMain> createState() => _TodaySpeciaMainState();
-}
-
-class _TodaySpeciaMainState extends State<TodaySpeciaMain> {
-  late DocumentReference _todaySpecialReference;
-  late Stream<DocumentSnapshot> _stream;
-
-  @override
-  void initState() {
-    super.initState();
-    _todaySpecialReference = FirebaseFirestore.instance
-        .collection('today_special')
-        .doc('todaySpecialId');
-    _stream = _todaySpecialReference.snapshots();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: _stream,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
-            DocumentSnapshot recipeDocSnapShot = snapshot.data;
-            Map recipeData = recipeDocSnapShot.data() as Map;
-            return AdminTodaySpl(todaySpecialId: recipeData['TodaySpecial']);
-          }
-          return const CircularProgressIndicator();
-        });
-  }
-}
-
-class AdminTodaySpl extends StatefulWidget {
+class AdminTodaySplBody extends StatefulWidget {
   final String todaySpecialId;
-  const AdminTodaySpl({super.key, required this.todaySpecialId});
+  const AdminTodaySplBody({super.key, required this.todaySpecialId});
 
   @override
-  State<AdminTodaySpl> createState() => _AdminTodaySplState();
+  State<AdminTodaySplBody> createState() => _AdminTodaySplBodyState();
 }
 
-class _AdminTodaySplState extends State<AdminTodaySpl> {
+class _AdminTodaySplBodyState extends State<AdminTodaySplBody> {
   late DocumentReference _recipeReferance;
   late Stream<DocumentSnapshot> _stream;
+
   @override
   void initState() {
     super.initState();
@@ -63,6 +29,9 @@ class _AdminTodaySplState extends State<AdminTodaySpl> {
     return StreamBuilder(
         stream: _stream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
+          final mediaQuery = MediaQuery.of(context);
+          final screenWidth = mediaQuery.size.width;
+          final screenHeight = mediaQuery.size.height;
           if (snapshot.hasData) {
             DocumentSnapshot recipeDocSnapShot = snapshot.data;
             Map recipeData = recipeDocSnapShot.data() as Map;
@@ -71,8 +40,6 @@ class _AdminTodaySplState extends State<AdminTodaySpl> {
               child: Card(
                   color: AppTheme.colors.appWhiteColor,
                   child: SizedBox(
-                    width: 330,
-                    height: 140,
                     child: Padding(
                       padding: const EdgeInsets.all(15),
                       child: Row(
@@ -81,24 +48,29 @@ class _AdminTodaySplState extends State<AdminTodaySpl> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'Special Recipe',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontFamily: AppTheme.fonts.jost),
+                              SizedBox(
+                                width: screenWidth*0.4,
+                                child: Text(
+                                  'Special Recipe today',
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                      overflow: TextOverflow.ellipsis,
+                                      fontSize: 20,
+                                      fontFamily: AppTheme.fonts.jost,
+                                      ),
+                                ),
                               ),
-                              Text(
-                                'Today.',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontFamily: AppTheme.fonts.jost),
-                              ),
-                              Text(
-                                recipeData['name'],
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w900,
-                                    fontFamily: AppTheme.fonts.jost),
+                             
+                              SizedBox(
+                                width: screenWidth*0.4,
+                                child: Text(
+                                  recipeData['name'],
+                                  style: TextStyle(
+                                      overflow: TextOverflow.ellipsis,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w900,
+                                      fontFamily: AppTheme.fonts.jost),
+                                ),
                               ),
                               Row(
                                 children: [
@@ -121,23 +93,28 @@ class _AdminTodaySplState extends State<AdminTodaySpl> {
                           ),
                           //foodphoto
                           SizedBox(
-                            width: 90,
-                            height: 90,
+                            width: screenWidth * 0.31,
+                            height: screenHeight * 0.12,
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.network(
                                   recipeData['recipeImage'],
                                   fit: BoxFit.fill,
-                                  loadingBuilder: (context, child,
-                                          loadingProgress) =>
-                                      (loadingProgress == null)
-                                          ? child
-                                          : Center(
-                                              child: Icon(
-                                              Icons.photo,
-                                              color:
-                                                  AppTheme.colors.appGreyColor,
-                                            )),
+                                  loadingBuilder:
+                                      (context, child, loadingProgress) =>
+                                          (loadingProgress == null)
+                                              ? child
+                                              : Container(
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          color: AppTheme.colors
+                                                              .appGreyColor)),
+                                                  child: Center(
+                                                    child: Icon(Icons.photo,
+                                                        color: AppTheme.colors
+                                                            .appGreyColor),
+                                                  ),
+                                                ),
                                 )),
                           )
                         ],

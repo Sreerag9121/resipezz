@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:recipizz/pages/tabs/admintab/adminhome/admin_categori_home.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:recipizz/pages/tabs/admintab/adminhome/admincat/admin_categori_main.dart';
 import 'package:recipizz/pages/tabs/admintab/adminhome/admin_easy_quick_home.dart';
 import 'package:recipizz/pages/tabs/admintab/adminhome/admin_seatrch_show.dart';
-import 'package:recipizz/pages/tabs/admintab/adminhome/admin_today_spl.dart';
+import 'package:recipizz/pages/tabs/admintab/adminhome/admin_time_filter.dart';
+import 'package:recipizz/pages/tabs/admintab/adminhome/admintodayspl/admin_today_spl_main.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
 class AdminHomePageMain extends StatefulWidget {
@@ -14,10 +16,13 @@ class AdminHomePageMain extends StatefulWidget {
 
 class _AdminHomePageMainState extends State<AdminHomePageMain> {
  final TextEditingController _searchController=TextEditingController();
-String recipeName='';
+ String recipeName='';
   bool searchvisibility = false;
   @override
   Widget build(BuildContext context) {
+          final mediaQuery = MediaQuery.of(context);
+          final screenWidth = mediaQuery.size.width;
+          final screenHeight = mediaQuery.size.height;
     return Scaffold(
       backgroundColor: AppTheme.colors.shadecolor,
       body: SafeArea(
@@ -46,37 +51,53 @@ String recipeName='';
                   //search bar
                   Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: TextFormField(
-                          controller: _searchController,
-                          onTap: () {
-                            setState(() {
-                              searchvisibility = true;
-                            });
-                          },
-                          onChanged: (value){
-                            setState(() {
-                              recipeName=value;
-                            });  
-                          },
-                          decoration: InputDecoration(
-                              hintText: 'search...',
-                              contentPadding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              prefixIcon: const Icon(Icons.search),
-                              suffixIcon: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      searchvisibility = false;
-                                      _searchController.clear();
-                                      FocusScope.of(context).unfocus();
-                                    });
-                                  },
-                                  icon: const Icon(Icons.clear)),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(50))),
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            width: screenWidth*0.6,
+                            padding: const EdgeInsets.all(10.0),
+                            child: TextFormField(
+                              controller: _searchController,
+                              onTap: () {
+                                setState(() {
+                                  searchvisibility = true;
+                                });
+                              },
+                              onChanged: (value){
+                                setState(() {
+                                  recipeName=value;
+                                });  
+                              },
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: AppTheme.colors.appWhiteColor,
+                                  hintText: 'search...',
+                                  contentPadding:
+                                      const EdgeInsets.symmetric(horizontal: 20),
+                                  prefixIcon: const Icon(Icons.search),
+                                  suffixIcon: IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          searchvisibility = false;
+                                          _searchController.clear();
+                                          FocusScope.of(context).unfocus();
+                                        });
+                                      },
+                                      icon: const Icon(Icons.clear)),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(50))),
+                            ),
+                          ),
+                          
+                          IconButton(
+                            onPressed: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdminTimeFilter()));
+                            },
+                            icon: FaIcon(FontAwesomeIcons.clock,
+                            color: AppTheme.colors.appWhiteColor,),
+                          ),
+                        ],
                       ),
                     ],
                   )
@@ -95,9 +116,10 @@ String recipeName='';
                   child: SingleChildScrollView(
                     child: Stack(children: [
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const TodaySpeciaMain(),
+                          // today special
+                          const AdminTodaySpecialMain(),
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 8),
@@ -110,11 +132,14 @@ String recipeName='';
                               ),
                             ),
                           ),
+                        //categories
                           const SizedBox(
                               height: 101, child: AdminCategoriHome()),
+                        //easy and quick
                           const AdminEasyAndQuick()
                         ],
                       ),
+                      //search visibity
                       Visibility(
                         visible: searchvisibility,
                         child: Container(

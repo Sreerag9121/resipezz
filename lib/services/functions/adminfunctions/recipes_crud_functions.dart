@@ -13,7 +13,7 @@ class RecipesCurdOp {
   Future<void> addRecipeMethod({
      required TextEditingController recipeNameController,
      required TextEditingController servingController,
-    required  TextEditingController timeRequiredController,
+    required  String timeRequiredController,
      required TextEditingController descriptionController,
      required String recipeImagePath,
      required List<TextEditingController> recipeIngredients,
@@ -31,7 +31,7 @@ class RecipesCurdOp {
       recipeImageUrl = await recipeImageUpload.getDownloadURL();
       String recipeName = recipeNameController.text;
       String serving = servingController.text;
-      String timeReqd = timeRequiredController.text;
+      String timeReqd = timeRequiredController;
       String categoriesTag = categoresTagController;
       String descriptions=descriptionController.text;
       recipeIngredientList.clear();

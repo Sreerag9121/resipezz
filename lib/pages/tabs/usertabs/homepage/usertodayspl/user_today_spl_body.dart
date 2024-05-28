@@ -3,41 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
-class UserTodaySpecialMain extends StatefulWidget {
-  const UserTodaySpecialMain({super.key});
-
-  @override
-  State<UserTodaySpecialMain> createState() => _UserTodaySpecialMainState();
-}
-
-class _UserTodaySpecialMainState extends State<UserTodaySpecialMain> {
-  late DocumentReference _todaySpecialReference;
-  late Stream<DocumentSnapshot> _stream;
-
-  @override
-  void initState() {
-    super.initState();
-    _todaySpecialReference = FirebaseFirestore.instance
-        .collection('today_special')
-        .doc('todaySpecialId');
-    _stream = _todaySpecialReference.snapshots();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: _stream,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
-            DocumentSnapshot recipeDocSnapShot = snapshot.data;
-            Map recipeData = recipeDocSnapShot.data() as Map;
-            return UserTodaySpl(todaySpecialId: recipeData['TodaySpecial']);
-          }
-          return const CircularProgressIndicator();
-        });
-  }
-}
-
 class UserTodaySpl extends StatefulWidget {
   final String todaySpecialId;
   const UserTodaySpl({super.key, required this.todaySpecialId});
@@ -49,6 +14,7 @@ class UserTodaySpl extends StatefulWidget {
 class _UserTodaySplState extends State<UserTodaySpl> {
   late DocumentReference _recipeReferance;
   late Stream<DocumentSnapshot> _stream;
+
   @override
   void initState() {
     super.initState();
@@ -63,6 +29,9 @@ class _UserTodaySplState extends State<UserTodaySpl> {
     return StreamBuilder(
         stream: _stream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
+          final mediaQuery = MediaQuery.of(context);
+          final screenWidth = mediaQuery.size.width;
+          final screenHeight = mediaQuery.size.height;
           if (snapshot.hasData) {
             DocumentSnapshot recipeDocSnapShot = snapshot.data;
             Map recipeData = recipeDocSnapShot.data() as Map;
@@ -71,8 +40,6 @@ class _UserTodaySplState extends State<UserTodaySpl> {
               child: Card(
                   color: AppTheme.colors.appWhiteColor,
                   child: SizedBox(
-                    width: 330,
-                    height: 140,
                     child: Padding(
                       padding: const EdgeInsets.all(15),
                       child: Row(
@@ -81,25 +48,29 @@ class _UserTodaySplState extends State<UserTodaySpl> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'Special Recipe',
-                                style: TextStyle(
-                                    overflow: TextOverflow.ellipsis,
-                                    fontSize: 20,
-                                    fontFamily: AppTheme.fonts.jost),
+                              SizedBox(
+                                width: screenWidth*0.4,
+                                child: Text(
+                                  'Special Recipe today',
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                      overflow: TextOverflow.ellipsis,
+                                      fontSize: 20,
+                                      fontFamily: AppTheme.fonts.jost,
+                                      ),
+                                ),
                               ),
-                              Text(
-                                'Today.',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontFamily: AppTheme.fonts.jost),
-                              ),
-                              Text(
-                                recipeData['name'],
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w900,
-                                    fontFamily: AppTheme.fonts.jost),
+                             
+                              SizedBox(
+                                width: screenWidth*0.4,
+                                child: Text(
+                                  recipeData['name'],
+                                  style: TextStyle(
+                                      overflow: TextOverflow.ellipsis,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w900,
+                                      fontFamily: AppTheme.fonts.jost),
+                                ),
                               ),
                               Row(
                                 children: [
@@ -122,8 +93,8 @@ class _UserTodaySplState extends State<UserTodaySpl> {
                           ),
                           //foodphoto
                           SizedBox(
-                            width: 90,
-                            height: 90,
+                            width: screenWidth * 0.36,
+                            height: screenHeight * 0.12,
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.network(
@@ -136,11 +107,12 @@ class _UserTodaySplState extends State<UserTodaySpl> {
                                               : Container(
                                                   decoration: BoxDecoration(
                                                       border: Border.all(
-                                                          color: AppTheme.colors.appGreyColor)),
+                                                          color: AppTheme.colors
+                                                              .appGreyColor)),
                                                   child: Center(
                                                     child: Icon(Icons.photo,
-                                                        color: AppTheme
-                                                            .colors.appGreyColor),
+                                                        color: AppTheme.colors
+                                                            .appGreyColor),
                                                   ),
                                                 ),
                                 )),

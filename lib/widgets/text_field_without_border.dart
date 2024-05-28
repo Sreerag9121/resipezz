@@ -27,7 +27,7 @@ class MyTextFieldWoutBrd extends StatelessWidget {
               hintStyle: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: AppTheme.colors.appGreyColor)),
+                  color: AppTheme.colors.appBlackColor)),
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Please enter $labelText';
