@@ -3,20 +3,20 @@ import 'package:recipizz/utils/app_theme.dart';
 
 class MyTextField extends StatefulWidget {
   final TextEditingController controllers;
-  final String hintText;
+  final String? hintText;
   final bool obscureText;
   final String? labelText;
   final IconData? prefixIconData;
   final IconData? suffixIconData;
-  final TextInputType keyboardType; 
+  final TextInputType? keyboardType; 
 
   const MyTextField({
     super.key,
     required this.controllers,
-    required this.hintText,
+    this.hintText,
     this.obscureText=false,
     this.labelText,
-    required this.keyboardType, 
+    this.keyboardType, 
     this.prefixIconData,
     this.suffixIconData,
   });
@@ -33,7 +33,7 @@ class MyTextFieldState extends State<MyTextField> {
     return TextFormField(
       controller: widget.controllers,
       obscureText: widget.obscureText && !_passwordVisibility,
-      keyboardType: widget.keyboardType, 
+      keyboardType: (widget.keyboardType==null)?TextInputType.text:widget.keyboardType, 
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
@@ -41,7 +41,7 @@ class MyTextFieldState extends State<MyTextField> {
         border:  const OutlineInputBorder(),
         labelText: (widget.labelText!=null)?widget.labelText:widget.hintText,
         labelStyle: TextStyle(color:AppTheme.colors.appBlackColor),
-        hintText: widget.hintText,
+        hintText: (widget.hintText!=null)? widget.hintText:widget.labelText,
         hintStyle: const TextStyle(
           color: Colors.black12,
         ),

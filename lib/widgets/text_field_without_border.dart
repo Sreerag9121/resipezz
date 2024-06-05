@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
-class MyTextFieldWoutBrd extends StatelessWidget {
+class BorderlessTextFormField extends StatelessWidget {
   final TextEditingController controllers;
-  final String hintText;
+  final String? hintText;
   final String labelText;
-  const MyTextFieldWoutBrd(
+  const BorderlessTextFormField(
       {super.key,
       required this.controllers,
-      required this.hintText,
+      this.hintText,
       required this.labelText});
 
   @override
@@ -23,7 +23,7 @@ class MyTextFieldWoutBrd extends StatelessWidget {
               labelStyle:
                   const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               floatingLabelBehavior: FloatingLabelBehavior.always,
-              hintText: hintText,
+              hintText: (hintText==null)?labelText:hintText,
               hintStyle: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,

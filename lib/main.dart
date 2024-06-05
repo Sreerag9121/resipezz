@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:recipizz/auth/splashscreen/splash_screen.dart';
+import 'package:recipizz/auth/splash_screen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:recipizz/services/functions/hive/hive_open_box.dart';
+import 'package:recipizz/services/database/hive/hive_open_box.dart';
 import 'firebase_options.dart';
 
 void main() async{
