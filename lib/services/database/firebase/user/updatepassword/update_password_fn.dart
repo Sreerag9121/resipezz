@@ -14,7 +14,8 @@ class UpdatePassWord {
 
         await user.updatePassword(newPassword);
       } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error:${e}'),));
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error:$e'),));
       }
     }
   }

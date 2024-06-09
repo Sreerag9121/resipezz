@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:recipizz/pages/admin/other/recipedetail/recipe_detail_main.dart';
+import 'package:recipizz/pages/admin/other/recipe_detail/recipe_detail_main.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
 class CategoryFilterPage extends StatefulWidget {
@@ -89,7 +89,7 @@ class _CategoryFilterPageState extends State<CategoryFilterPage> {
                         return InkWell(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => AdminRecipesMainPage(
+                                builder: (context) => AdminRecipesDetailPage(
                                       recipeId: thisItem['id'],
                                     )));
                           },

@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:recipizz/pages/admin/tab/admin_home_page/admin_home_category/admin_category_list.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
-class AdminCategoriHome extends StatefulWidget {
-  const AdminCategoriHome({super.key});
+class AdminCategoryHome extends StatefulWidget {
+  const AdminCategoryHome({super.key});
 
   @override
-  State<AdminCategoriHome> createState() => _AdminCategoriHomeState();
+  State<AdminCategoryHome> createState() => _AdminCategoryHomeState();
 }
 
-class _AdminCategoriHomeState extends State<AdminCategoriHome> {
+class _AdminCategoryHomeState extends State<AdminCategoryHome> {
   late Stream<QuerySnapshot> _stream;
   @override
   void initState() {
@@ -47,7 +47,23 @@ class _AdminCategoriHomeState extends State<AdminCategoriHome> {
                   })
               .toList();
 
-          return AdminCatBody(items: items);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Categories',
+                  style: TextStyle(
+                    fontFamily: AppTheme.fonts.jost,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ),
+              AdminCatBody(items: items),
+            ],
+          );
         }
         return const Center(child: CircularProgressIndicator());
       },

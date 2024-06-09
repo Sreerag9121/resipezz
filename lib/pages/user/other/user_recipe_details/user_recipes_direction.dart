@@ -22,26 +22,28 @@ class _UserRecipeDirectionState extends State<UserRecipeDirection> {
           height: 70,
           color: AppTheme.colors.appRedColor,
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-               Icon(
-                Icons.directions_outlined,
-                color: AppTheme.colors.appWhiteColor,
+              Row(
+                children: [
+                   Icon(
+                    Icons.directions_outlined,
+                    color: AppTheme.colors.appWhiteColor,
+                  ),
+                  Text(
+                    ' Direction to Prepare',
+                    style: TextStyle(
+                        fontFamily: AppTheme.fonts.jost,
+                        fontSize: 18,
+                        color: AppTheme.colors.appWhiteColor),
+                  ),
+                ],
               ),
-              Text(
-                ' Direction to Prepare',
-                style: TextStyle(
-                    fontFamily: AppTheme.fonts.jost,
-                    fontSize: 18,
-                    color: AppTheme.colors.appWhiteColor),
-              ),
-              const SizedBox(
-                width: 110,
-              ),
-              Text(
-                'Steps-${widget.recipesDirection.length}',
-                style: TextStyle(
-                    fontFamily: AppTheme.fonts.jost, color: AppTheme.colors.appWhiteColor),
-              )
+               Text(
+                    'Steps-${widget.recipesDirection.length}',
+                    style: TextStyle(
+                        fontFamily: AppTheme.fonts.jost, color: AppTheme.colors.appWhiteColor),
+                  )
             ],
           ),
         ),

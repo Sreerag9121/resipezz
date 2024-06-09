@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:recipizz/pages/admin/tab/admin_home_page/admin_home_category/admin_category_main.dart';
-import 'package:recipizz/pages/admin/tab/admin_home_page/admin_search_view/admin_seatrch_view.dart';
-import 'package:recipizz/pages/admin/tab/admin_home_page/admin_time_filter/admin_time_filter.dart';
-import 'package:recipizz/pages/admin/tab/admin_home_page/admin_todayspl/admin_today_spl_main.dart';
-import 'package:recipizz/pages/admin/tab/admin_home_page/admin_carousel/admin_carousel.dart';
+import 'package:recipizz/pages/user/tabs/home_page/user_carousel/user_carousel.dart';
+import 'package:recipizz/pages/user/tabs/home_page/user_categori_list/user_home_categori.dart';
+import 'package:recipizz/pages/user/tabs/home_page/user_time_filter/user_time_filter_main.dart';
+import 'package:recipizz/pages/user/tabs/home_page/user_todayspl/user_today_spl.dart';
+import 'package:recipizz/pages/user/tabs/home_page/home_layout_builder/user_search_home.dart';
+import 'package:recipizz/pages/user/other/cart/user_cart_page.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
-class AdminHomePage extends StatefulWidget {
-  const AdminHomePage({super.key});
+class UserHomeMobile extends StatefulWidget {
+  const UserHomeMobile({super.key});
 
   @override
-  State<AdminHomePage> createState() => _AdminHomePageState();
+  State<UserHomeMobile> createState() => _UserHomeMobileState();
 }
 
-class _AdminHomePageState extends State<AdminHomePage> {
+class _UserHomeMobileState extends State<UserHomeMobile> {
   final TextEditingController _searchController = TextEditingController();
   String recipeName = '';
   bool searchvisibility = false;
@@ -22,6 +23,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final screenWidth = mediaQuery.size.width;
+    final screenHeight=mediaQuery.size.height;
     return Scaffold(
       backgroundColor: AppTheme.colors.shadecolor,
       body: SafeArea(
@@ -29,26 +31,25 @@ class _AdminHomePageState extends State<AdminHomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 170,
+              height: 130,
               padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
               child: Column(
                 children: [
                   Center(
-                    child: Text('Home Page',
+                    child: Text(
+                      'Home Page',
                       style: TextStyle(
-                        fontSize: 35,
+                        fontSize: 25,
                         fontFamily: AppTheme.fonts.jost,
                         color: AppTheme.colors.background,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 15,),
 //search bar
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Container(
-                        width: screenWidth * 0.6,
+                        width: screenWidth*0.7,
                         padding: const EdgeInsets.all(10.0),
                         child: TextFormField(
                           controller: _searchController,
@@ -64,7 +65,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                           },
                           decoration: InputDecoration(
                               filled: true,
-                              fillColor: AppTheme.colors.appWhiteColor,
+                              fillColor: AppTheme.colors.background,
                               hintText: 'search...',
                               contentPadding:
                                   const EdgeInsets.symmetric(horizontal: 20),
@@ -73,8 +74,8 @@ class _AdminHomePageState extends State<AdminHomePage> {
                                   onPressed: () {
                                     setState(() {
                                       searchvisibility = false;
-                                      FocusScope.of(context).unfocus();
                                       _searchController.clear();
+                                      FocusScope.of(context).unfocus();
                                     });
                                   },
                                   icon: const Icon(Icons.clear)),
@@ -82,20 +83,23 @@ class _AdminHomePageState extends State<AdminHomePage> {
                                   borderRadius: BorderRadius.circular(50))),
                         ),
                       ),
-//time filter                    
-                      IconButton(
-                        onPressed: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) =>
-                                      const AdminTimeFilter()));
+                       IconButton(
+                        onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>const UserTimeFilterMain()));
                         },
-                        icon: FaIcon(
-                          FontAwesomeIcons.clock,
-                          color: AppTheme.colors.appWhiteColor,
-                        ),
+                        icon: FaIcon(FontAwesomeIcons.clock,
+                        color: AppTheme.colors.appWhiteColor,),
                       ),
-                    ],)
-                ],),
+                      IconButton(
+                        onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>const UserCartPage()));
+                        },
+                         icon: Icon(Icons.shopping_cart_outlined,
+                         color: AppTheme.colors.appWhiteColor,))
+                    ],
+                  )
+                ],
+              ),
             ),
 //home page content
             Expanded(
@@ -108,18 +112,19 @@ class _AdminHomePageState extends State<AdminHomePage> {
                   color: AppTheme.colors.appWhiteColor,
                   child: SingleChildScrollView(
                     child: Stack(children: [
-                      const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Column(
                         children: [
 // today special
-                          AdminTodaySpecialMain(),
-//recipes
-                          AdminCarousel(),
-//categories
-                          AdminCategoryHome(),
+                          SizedBox(
+                            height:(screenWidth<500)? screenHeight*0.22:screenHeight*0.34,
+                            child: const UserTodaySpecialMain()
+                            ),
+//carousel
+                          const UserCarousel(),
+//category
+                          const UserCategoryHome(),
                         ],
                       ),
-//search visibity
                       Visibility(
                         visible: searchvisibility,
                         child: Container(
@@ -127,7 +132,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                           child: SizedBox(
                               width: double.infinity,
                               height: 600,
-                              child: AdminSearchShow(searchData: recipeName)),
+                              child: UserSearchShow(searchData: recipeName)),
                         ),
                       )
                     ]),

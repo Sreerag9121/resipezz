@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:recipizz/pages/user/other/aboutus/about_us_main.dart';
-import 'package:recipizz/pages/user/other/myprofile/update_profile_main.dart';
-import 'package:recipizz/pages/user/other/privacy_policy/privacy_policy_page.dart';
-import 'package:recipizz/pages/user/other/privacy_policy/terms_conditions_page.dart';
-import 'package:recipizz/pages/user/other/userpassword/user_pass_main.dart';
+import 'package:recipizz/pages/user/other/about_app/about_app_page.dart';
+import 'package:recipizz/pages/user/other/my_profile/update_profile_main.dart';
+import 'package:recipizz/pages/user/other/rule/privacy_policy_page.dart';
+import 'package:recipizz/pages/user/other/rule/terms_conditions_page.dart';
+import 'package:recipizz/pages/user/other/user_password/user_password_page.dart';
 import 'package:recipizz/pages/user/tabs/menu/Menumain/menu_signout.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
@@ -25,13 +25,13 @@ final List<Menuitems>menuitems=[
     Menuitems(
     title: 'Update Password',
      icon:Icons.lock_outline,
-     mnuitmnav: const UserPassMain(),
+     mnuitmnav: const UserPasswordPage(),
     ),
-     Menuitems(
-    title: 'About',
-     icon:Icons.info_outline_rounded,
-     mnuitmnav: const AboutUsMain(),
-    ),
+    //  Menuitems(
+    // title: 'About',
+    //  icon:Icons.info_outline_rounded,
+    //  mnuitmnav: const AboutAppPage(),
+    // ),
     Menuitems(
     title: 'Privacy Policy',
      icon:Icons.privacy_tip_outlined,
@@ -95,6 +95,20 @@ final List<Menuitems>menuitems=[
                 },
                 )
             ),
+            Text('Version',
+            style: TextStyle(
+              fontSize: 24,
+              fontFamily: AppTheme.fonts.jost,
+              fontWeight: FontWeight.w500,
+              color: AppTheme.colors.appGreyColor
+            ),),
+            Text('1.0.0',
+            style: TextStyle(
+              fontSize: 17,
+              fontFamily: AppTheme.fonts.jost,
+              fontWeight: FontWeight.w500,
+              color: AppTheme.colors.appGreyColor
+            ),)
           ],
         ),
       )

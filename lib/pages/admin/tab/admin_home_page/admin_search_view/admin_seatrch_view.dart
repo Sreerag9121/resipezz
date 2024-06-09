@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:recipizz/pages/admin/other/recipedetail/recipe_detail_main.dart';
+import 'package:recipizz/pages/admin/other/recipe_detail/recipe_detail_main.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
 class AdminSearchShow extends StatefulWidget {
@@ -77,7 +77,7 @@ class _AdminSearchShowState extends State<AdminSearchShow> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          AdminRecipesMainPage(recipeId: data['id'])));
+                          AdminRecipesDetailPage(recipeId: data['id'])));
             },
             title: Text(
               data['name'],

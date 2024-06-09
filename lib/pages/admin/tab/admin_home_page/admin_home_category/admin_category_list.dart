@@ -13,9 +13,10 @@ class AdminCatBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    final screenWidth = mediaQuery.size.width;
+    final screenHeight=mediaQuery.size.height;
     return ListView.builder(
-      scrollDirection: Axis.horizontal,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: items.length,
       itemBuilder: (BuildContext context, int index) {
         Map thisItem = items[index];
@@ -39,7 +40,8 @@ class AdminCatBody extends StatelessWidget {
                     alignment: Alignment.bottomCenter,
                     children: [
                       SizedBox(
-                        width: screenWidth * 0.4,
+                        width: double.infinity,
+                        height: screenHeight*0.2,
                         child: Image.network(
                           thisItem['image'],
                           fit: BoxFit.cover,

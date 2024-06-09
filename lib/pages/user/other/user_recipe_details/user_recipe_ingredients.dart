@@ -51,27 +51,31 @@ class _UserRecipesIngredientsState extends State<UserRecipesIngredients> {
                 height: 70,
                 color: AppTheme.colors.appRedColor,
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(
-                      Icons.list,
-                      color: AppTheme.colors.appWhiteColor,
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.list,
+                          color: AppTheme.colors.appWhiteColor,
+                        ),
+                        Text(
+                          ' Ingredients Required',
+                          style: TextStyle(
+                              fontFamily: AppTheme.fonts.jost,
+                              fontSize: 18,
+                              color: AppTheme.colors.appWhiteColor),
+                        ),
+                        
+                        
+                      ],
                     ),
                     Text(
-                      ' Ingredients Required',
-                      style: TextStyle(
-                          fontFamily: AppTheme.fonts.jost,
-                          fontSize: 18,
-                          color: AppTheme.colors.appWhiteColor),
-                    ),
-                    const SizedBox(
-                      width: 110,
-                    ),
-                    Text(
-                      'items ${widget.ingredientsItems.length}',
-                      style: TextStyle(
-                          fontFamily: AppTheme.fonts.jost,
-                          color: AppTheme.colors.appWhiteColor),
-                    )
+                          'items ${widget.ingredientsItems.length}',
+                          style: TextStyle(
+                              fontFamily: AppTheme.fonts.jost,
+                              color: AppTheme.colors.appWhiteColor),
+                        )
                   ],
                 ),
               ),

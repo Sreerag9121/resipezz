@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:recipizz/pages/user/other/hiverecipeadd/my_recipes.dart';
+import 'package:recipizz/pages/user/tabs/my_recipe/my_recipes_grid.dart';
+import 'package:recipizz/pages/user/tabs/home_page/home_layout_builder/user_home_desktop_view.dart';
+import 'package:recipizz/widgets/layout_builder.dart';
 import 'package:recipizz/pages/user/tabs/menu/Menumain/menu_main.dart';
-import 'package:recipizz/pages/user/tabs/favoritepage/favorite_main.dart';
-import 'package:recipizz/pages/user/tabs/homepage/user_home_main.dart';
+import 'package:recipizz/pages/user/tabs/favorite_page/favorite_main.dart';
+import 'package:recipizz/pages/user/tabs/home_page/home_layout_builder/user_home_mobile_view.dart';
 import 'package:recipizz/utils/app_theme.dart';
 
 class UserNavBar extends StatefulWidget {
@@ -15,7 +17,10 @@ class UserNavBar extends StatefulWidget {
 class _UserNavBarState extends State<UserNavBar> {
   int index=0;
   final screens=[
-    const UserHomePageMain(),
+    const MyLayoutBuilder(
+      mobileBody: UserHomeMobile(), 
+      deskTopBody: UserHomeDesktop(),
+      ),
     const FavoritetPageMain(),
     const HiveUserRecipeMain(),
     const MenuPage(),

@@ -34,6 +34,8 @@ class _UserRecipeDetailState extends State<UserRecipeDetail> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final screenWidth = mediaQuery.size.width;
     FavoriteCrud favoriteCrud = FavoriteCrud();
     return Column(
       children: [
@@ -42,7 +44,7 @@ class _UserRecipeDetailState extends State<UserRecipeDetail> {
           height: 300,
           child: Image.network(
             widget.recipeImage.toString(),
-            fit: BoxFit.cover,
+            fit: BoxFit.fill,
             loadingBuilder: (context, child, loadingProgress) =>
                 (loadingProgress == null)
                     ? child
@@ -58,13 +60,17 @@ class _UserRecipeDetailState extends State<UserRecipeDetail> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                widget.recipename.toString(),
-                style: TextStyle(
-                  overflow: TextOverflow.ellipsis,
-                  fontFamily: AppTheme.fonts.jost,
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700,
+              SizedBox(
+                width:(screenWidth>600)? screenWidth*.4:screenWidth*.8,
+                child: Text(
+                  widget.recipename.toString(),
+                  maxLines: 2,
+                  style: TextStyle(
+                    overflow: TextOverflow.ellipsis,
+                    fontFamily: AppTheme.fonts.jost,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
               Container(
@@ -99,35 +105,33 @@ class _UserRecipeDetailState extends State<UserRecipeDetail> {
         ),
         Container(
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  const FaIcon(
-                    FontAwesomeIcons.clock,
-                    size: 18,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: Text(
-                      'Ready in ${widget.duration.toString()} hr',
+              SizedBox(
+                width:(screenWidth>600)? screenWidth/4:screenWidth*.5,
+                child: Row(
+                  children: [
+                    const FaIcon(
+                      FontAwesomeIcons.clock,
+                      size: 17,
+                    ),
+                    Text(
+                      ' Ready in ${widget.duration.toString()} hr',
                       style: TextStyle(
                           fontFamily: AppTheme.fonts.jost,
                           fontWeight: FontWeight.w700),
-                    ),
-                  )
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 8),
-                child: Text(
-                  'Serving:${widget.serving.toString()} People',
-                  style: TextStyle(
-                      fontFamily: AppTheme.fonts.jost,
-                      fontWeight: FontWeight.w700),
+                    )
+                  ],
                 ),
+              ),
+              Text(
+                'Serving:${widget.serving.toString()} People',
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    fontFamily: AppTheme.fonts.jost,
+                    fontWeight: FontWeight.w700),
               )
             ],
           ),

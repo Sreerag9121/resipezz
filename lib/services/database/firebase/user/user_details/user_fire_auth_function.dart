@@ -19,12 +19,12 @@ class AuthServices {
             email: user.email.toString(), password: user.password.toString());
 
     if (userData != null) {
-      AddUserData(user, userData.user!.uid,);
+      addUserData(user, userData.user!.uid,);
       return userData;
     }
     return null;
   }
-  Future<void>AddUserData(UserModel user,String uid)async{
+  Future<void>addUserData(UserModel user,String uid)async{
       String uniqueTime = DateTime.now().microsecondsSinceEpoch.toString();
     Reference userImageRef = FirebaseStorage.instance.ref();
     Reference userImage = userImageRef.child('user_por_pick');

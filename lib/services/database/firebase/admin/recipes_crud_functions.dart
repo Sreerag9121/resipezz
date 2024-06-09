@@ -55,6 +55,7 @@ class RecipesCurdOp {
       };
       await _recipeReferance.add(dataTosend);
     } catch (e) {
+       // ignore: use_build_context_synchronously
        ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('No images: $e')));
     }
