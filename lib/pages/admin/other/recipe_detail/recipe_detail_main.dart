@@ -85,9 +85,9 @@ class _AdminRecipesDetailPageState extends State<AdminRecipesDetailPage> {
                         style: TextStyle(fontFamily: AppTheme.fonts.jost),
                       ),
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
+                          backgroundColor: WidgetStateProperty.all<Color>(
                               AppTheme.colors.appRedColor),
-                          foregroundColor: MaterialStateProperty.all<Color>(
+                          foregroundColor: WidgetStateProperty.all<Color>(
                               AppTheme.colors.appWhiteColor)),
                     ),
                     ElevatedButton(
@@ -111,9 +111,9 @@ class _AdminRecipesDetailPageState extends State<AdminRecipesDetailPage> {
                         ));
                       },
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
+                          backgroundColor: WidgetStateProperty.all<Color>(
                               AppTheme.colors.shadecolor),
-                          foregroundColor: MaterialStateProperty.all<Color>(
+                          foregroundColor: WidgetStateProperty.all<Color>(
                               AppTheme.colors.appWhiteColor)),
                       child: Text(
                         'Make Today Special',

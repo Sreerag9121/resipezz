@@ -30,23 +30,17 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                  width: 130,
-                  height: 130,
-                  child: Image.asset('assets/images/logo/logo-1.png')),
               Text(
                   style: TextStyle(
                     fontFamily: AppTheme.fonts.mulish,
                     fontWeight: FontWeight.w600,
                   ),
                   'Get started with '),
-              Text(
-                  style: TextStyle(
-                    color: AppTheme.colors.appBlackColor,
-                    fontFamily: AppTheme.fonts.mysteryQuest,
-                    fontSize: 40.0,
-                  ),
-                  'ReciPizz')
+              SizedBox(
+                  width: 90,
+                  height: 90,
+                  child: Image.asset('assets/images/logo/app_icon-removebg.png')),
+              
             ],
           ),
         ));

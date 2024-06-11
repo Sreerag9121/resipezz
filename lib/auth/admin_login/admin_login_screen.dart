@@ -35,7 +35,7 @@ class _AdminLogInScreenState extends State<AdminLogInScreen> {
                     SizedBox(
                       width: 130,
                       height: 130,
-                      child: Image.asset('assets/images/logo/logo-1.png'),
+                      child: Image.asset('assets/images/logo/app_icon-removebg.png'),
                     ),
           //wlcometext
                    const Text('Enter your credential to log in.',
@@ -67,9 +67,9 @@ class _AdminLogInScreenState extends State<AdminLogInScreen> {
           //login button
                      ElevatedButton(
                     style: ButtonStyle(
-                      minimumSize: MaterialStateProperty.all<Size>(
+                      minimumSize: WidgetStateProperty.all<Size>(
                           const Size(100.0, 50.0)),
-                      backgroundColor: MaterialStateProperty.all<Color>(
+                      backgroundColor: WidgetStateProperty.all<Color>(
                         AppTheme.colors.maincolor,
                       ),
                     ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:recipizz/pages/user/other/about_app/about_app_page.dart';
 import 'package:recipizz/pages/user/other/my_profile/update_profile_main.dart';
 import 'package:recipizz/pages/user/other/rule/privacy_policy_page.dart';
 import 'package:recipizz/pages/user/other/rule/terms_conditions_page.dart';

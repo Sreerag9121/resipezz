@@ -70,9 +70,9 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                     children: [
                       ElevatedButton(
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
+                            backgroundColor: WidgetStateProperty.all<Color>(
                                 AppTheme.colors.shadecolor),
-                            foregroundColor: MaterialStateProperty.all<Color>(
+                            foregroundColor: WidgetStateProperty.all<Color>(
                                 AppTheme.colors.appWhiteColor)),
                         onPressed: isLoading
                             ? null

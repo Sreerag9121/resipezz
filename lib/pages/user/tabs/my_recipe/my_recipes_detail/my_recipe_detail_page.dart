@@ -78,9 +78,9 @@ class _MyRecipeDetailsPageState extends State<MyRecipeDetailsPage> {
                         style: TextStyle(fontFamily: AppTheme.fonts.jost),
                       ),
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
+                          backgroundColor: WidgetStateProperty.all<Color>(
                               AppTheme.colors.appRedColor),
-                          foregroundColor: MaterialStateProperty.all<Color>(
+                          foregroundColor: WidgetStateProperty.all<Color>(
                               AppTheme.colors.appWhiteColor)),
                     ),
                   ),
@@ -99,9 +99,9 @@ class _MyRecipeDetailsPageState extends State<MyRecipeDetailsPage> {
                         style: TextStyle(fontFamily: AppTheme.fonts.jost),
                       ),
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
+                          backgroundColor: WidgetStateProperty.all<Color>(
                               AppTheme.colors.appGreyColor),
-                          foregroundColor: MaterialStateProperty.all<Color>(
+                          foregroundColor: WidgetStateProperty.all<Color>(
                               AppTheme.colors.appWhiteColor)),
                     ),
                   )

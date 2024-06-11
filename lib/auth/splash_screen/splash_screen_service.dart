@@ -1,5 +1,4 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:recipizz/auth/onboarding/onboarding_main.dart';
 import 'package:recipizz/pages/admin/tab/admin_navbar/adminnavbar.dart';
