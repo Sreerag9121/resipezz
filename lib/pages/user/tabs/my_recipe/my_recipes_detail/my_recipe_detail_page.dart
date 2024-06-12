@@ -3,6 +3,7 @@ import 'package:recipizz/pages/admin/other/recipe_detail/recipe_description.dart
 import 'package:recipizz/pages/admin/other/recipe_detail/recipe_direction.dart';
 import 'package:recipizz/pages/admin/other/recipe_detail/recipe_ingredients.dart';
 import 'package:recipizz/pages/user/tabs/my_recipe/my_recipes_detail/my_recipes_details.dart';
+import 'package:recipizz/pages/user/tabs/my_recipe/my_recipes_update.dart/update_my_recipes_page.dart';
 import 'package:recipizz/services/database/hive/hive_open_box.dart';
 import 'package:recipizz/services/database/hive/my_recipes/my_recipe_model.dart';
 import 'package:recipizz/utils/app_theme.dart';
@@ -91,7 +92,7 @@ class _MyRecipeDetailsPageState extends State<MyRecipeDetailsPage> {
                     ),
                     child: ElevatedButton.icon(
                       onPressed: () {
-                        Navigator.pop(context);
+                        Navigator.push(context,MaterialPageRoute(builder: (context)=>UpdateMyRecipePage(index: widget.index)));
                       },
                       icon: const Icon(Icons.edit_outlined),
                       label: Text(

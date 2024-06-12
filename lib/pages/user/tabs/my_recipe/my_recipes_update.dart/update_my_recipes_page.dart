@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:recipizz/pages/user/tabs/my_recipe/my_recipes_detail/my_recipe_detail_page.dart';
 import 'package:recipizz/pages/user/tabs/my_recipe/my_recipes_update.dart/update_my_recipes_image.dart';
 import 'package:recipizz/pages/user/tabs/my_recipe/my_recipes_update.dart/udatedirections.dart';
 import 'package:recipizz/pages/user/tabs/my_recipe/my_recipes_update.dart/update_my_recipes_ingredients.dart';
@@ -124,8 +123,8 @@ class _UpdateMyRecipePageState extends State<UpdateMyRecipePage> {
                         backgroundColor: AppTheme.colors.maincolor,
                         foregroundColor: AppTheme.colors.appWhiteColor,
                       ),
-                      onPressed: () {
-                        userRecipeCrud.updateRecipeHive(
+                      onPressed: () async{
+                       await userRecipeCrud.updateRecipeHive(
                           index:widget.index,
                           recipeNameController:_recipenamecontoller,
                           servingController:_servingcontoller,
@@ -140,11 +139,7 @@ class _UpdateMyRecipePageState extends State<UpdateMyRecipePage> {
                               descriptionController: _descriptioncontoller
                               
                         );
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MyRecipeDetailsPage(
-                                    index: widget.index)));
+                        Navigator.pop(context);
                       },
                       child: Text('Create Recipe',
                       style: TextStyle(

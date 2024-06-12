@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:recipizz/utils/app_theme.dart';
@@ -39,12 +38,6 @@ class HiveRecipeDetails extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.favorite,
-                    color: AppTheme.colors.appRedColor,
-                  ))
             ],
           ),
         ),

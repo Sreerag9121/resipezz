@@ -30,7 +30,6 @@ class HiveUserRecipeMain extends StatelessWidget {
         automaticallyImplyLeading: false,
       ),
       body: ValueListenableBuilder(
-        
           valueListenable: Boxes.getData().listenable(),
           builder: (context, recipeBox, _) {
             var recipes = recipeBox.values.toList().cast<RecipeModel>();
